@@ -2,9 +2,12 @@
 <%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
-<jsp:useBean id="ctx" type="com.dianping.egret.console.page.deploy.Context" scope="request" />
-<jsp:useBean id="payload" type="com.dianping.egret.console.page.deploy.Payload" scope="request" />
-<jsp:useBean id="model" type="com.dianping.egret.console.page.deploy.Model" scope="request" />
+<jsp:useBean id="ctx"
+	type="com.dianping.egret.console.page.deploy.Context" scope="request" />
+<jsp:useBean id="payload"
+	type="com.dianping.egret.console.page.deploy.Payload" scope="request" />
+<jsp:useBean id="model"
+	type="com.dianping.egret.console.page.deploy.Model" scope="request" />
 
 <a:body>
 	<div class="row-fluid">
@@ -33,13 +36,7 @@
 		<div class="row-fluid">
 			<div id="status" data-spy="scroll" data-offset="0"
 				class="scrollspy-example">
-				<c:forEach var="msg" items="${model.msgs}">
-					<span class="label label-${msg.info}">${msg.msgid} &nbsp;
-						${msg.content} </span>
-					<script type="text/javascript">
-							setProgress(${msg.progress});
-						</script>
-				</c:forEach>
+				<span class="label label-default"> ${model.log} </span>
 			</div>
 
 			<div id="alert" class="alert alert-info" style="display: none">Deploy
@@ -48,9 +45,6 @@
 	</div>
 	<input type="hidden" name="offset" value="${model.offset}">
 	<script type="text/javascript">
-		function setProgress(progress){
-			$("#progressbar").css("width", progress);
-		}
 		
 		function updateDeployStatus() {
 			$(document).ready(
@@ -60,29 +54,23 @@
 							url : "?op=log",
 							dataType : "json",
 							data : {
-								"offset" : offset
+								"offset" : ${offset}
 							},
-							success : function(msg) {
+							success : function(offset, content, progress) {
 								//alert(msg);
-								$.each(msg, function(msgid, content, progress,
-										info) {
-									if (info = "") {
-										info = "default";
-									}
 
 									$("#status").append(
 											"<span class=\"label label-")
-											.append(info).append("\">").append(
+											.append("default").append("\">").append(
 													msgid).append(" ").append(
 													content).append("</span>");
-									setProgress(progress);
+									$("#progressbar").css("width", progress);
 
 									offset = msgid;
 									
 									if(progress=100){
 										$("#alert").show();
 									}
-								});
 							}
 						});
 					});
