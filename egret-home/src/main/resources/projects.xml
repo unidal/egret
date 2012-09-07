@@ -22,4 +22,6 @@
 			<dependencyJar>second</dependencyJar>
 		</dependencyJars>
 	</project>
+	<patch>patch1</patch>
+	<patch>patch2</patch>
 </projects>
