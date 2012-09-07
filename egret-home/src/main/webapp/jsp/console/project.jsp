@@ -33,35 +33,35 @@
 		</table>
 	</div>
 
-	<div class="row-fluid">
-		<table class="table table-striped table-bordered table-condensed">
-			<caption>Host List</caption>
-			<thead>
-				<tr>
-					<th></th>
-					<th>IP</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="ip" items="${model.project.hosts}">
+	<form class="form-horizontal" action="?op=deploy" method="post">
+		<div class="row-fluid">
+			<table class="table table-striped table-bordered table-condensed">
+				<caption>Host List</caption>
+				<thead>
 					<tr>
-						<td><input type="checkbox"></td>
-						<td>${ip}</td>
+						<th></th>
+						<th>IP</th>
 					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="ip" items="${model.project.hosts}">
+						<tr>
+							<td><input type="checkbox" name="hosts" value="${ip}"></td>
+							<td>${ip}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row-fluid">
+			<select name="deployPlan">
+				<c:forEach var="plan" items="${model.deployPlans}">
+					<option>${plan}</option>
 				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-
-	<div class="row-fluid">
-		<h4>Select Plan</h4>
-		<select>
-			<c:forEach var="plan" items="${model.deployPlans}">
-				<option>${plan}</option>
-			</c:forEach>
-		</select>
-		<button type="submit" class="btn btn-primary">Submit Plan</button>
-		<button type="button" class="btn">Cancel</button>
-	</div>
-
+			</select>
+			<button type="submit" class="btn btn-primary">Submit Plan</button>
+			<button type="button" class="btn">Cancel</button>
+		</div>
+	</form>
 </a:body>

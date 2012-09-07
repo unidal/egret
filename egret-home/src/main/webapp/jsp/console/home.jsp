@@ -2,9 +2,12 @@
 <%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
-<jsp:useBean id="ctx" type="com.dianping.egret.console.page.home.Context" scope="request" />
-<jsp:useBean id="payload" type="com.dianping.egret.console.page.home.Payload" scope="request" />
-<jsp:useBean id="model" type="com.dianping.egret.console.page.home.Model" scope="request" />
+<jsp:useBean id="ctx"
+	type="com.dianping.egret.console.page.home.Context" scope="request" />
+<jsp:useBean id="payload"
+	type="com.dianping.egret.console.page.home.Payload" scope="request" />
+<jsp:useBean id="model"
+	type="com.dianping.egret.console.page.home.Model" scope="request" />
 
 <a:body>
 
@@ -13,7 +16,8 @@
 			<!-- project search form -->
 			<form class="form-search" action="?op=home">
 				<div class="input-append">
-					<input type="text" name="keyword" value="${payload.keyword}" class="search-query input-large" placeholder="jar-version">
+					<input type="text" name="keyword" value="${payload.keyword}"
+						class="search-query input-large" placeholder="jar-version">
 					<button type="submit" class="btn">Search</button>
 				</div>
 			</form>
@@ -27,6 +31,7 @@
 						<th>Project</th>
 						<th>Owner</th>
 						<th>Hosts</th>
+						<th>DependencyJars</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,6 +40,7 @@
 							<td><a href="?op=project&name=${project.name}">${project.name}</a></td>
 							<td>${project.owner}</td>
 							<td>${project.hosts}</td>
+							<td>${project.dependencyJars}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -1,5 +1,7 @@
 package com.dianping.egret.console.page.home;
 
+import java.util.List;
+
 import com.dianping.egret.console.ConsolePage;
 import com.site.web.mvc.ActionContext;
 import com.site.web.mvc.ActionPayload;
@@ -17,9 +19,23 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 	@FieldMeta("keyword")
 	private String m_keyword;
 
+	@FieldMeta("hosts")
+	private List<String> m_hosts;
+
+	@FieldMeta("deployPlan")
+	private String m_deployPlan;
+
 	@Override
 	public Action getAction() {
 		return m_action;
+	}
+
+	public String getDeployPlan() {
+		return m_deployPlan;
+	}
+
+	public List<String> getHosts() {
+		return m_hosts;
 	}
 
 	public String getKeyword() {
@@ -37,6 +53,14 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 
 	public void setAction(String action) {
 		m_action = Action.getByName(action, Action.HOME);
+	}
+
+	public void setDeployPlan(String deployPlan) {
+		this.m_deployPlan = deployPlan;
+	}
+
+	public void setHosts(List<String> hosts) {
+		this.m_hosts = hosts;
 	}
 
 	public void setKeyword(String keyword) {

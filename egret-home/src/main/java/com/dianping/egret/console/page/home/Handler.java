@@ -21,7 +21,7 @@ public class Handler implements PageHandler<Context> {
 
 	@Inject
 	private ProjectService m_projectService;
-	
+
 	@Inject
 	private DeployService m_deployService;
 
@@ -30,9 +30,12 @@ public class Handler implements PageHandler<Context> {
 	@InboundActionMeta(name = "home")
 	public void handleInbound(Context ctx) throws ServletException, IOException {
 		Action action = ctx.getPayload().getAction();
-		
+
 		switch (action) {
 		case DEPLOY:
+			List<String> hosts = ctx.getPayload().getHosts();
+			String deployPlan = ctx.getPayload().getDeployPlan();
+			// TODO process deploy
 			break;
 		default:
 			break;
@@ -49,17 +52,17 @@ public class Handler implements PageHandler<Context> {
 		switch (action) {
 		case HOME:
 			List<Project> projects = m_projectService.search(payload.getKeyword());
-
 			model.setProjects(projects);
 			break;
 		case PROJECT:
 			Project project = m_projectService.findByName(payload.getProjectName());
-
 			model.setProject(project);
 			List<String> deployPlans = m_deployService.getDeployPlans();
 			model.setDeployPlans(deployPlans);
 			break;
 		case DEPLOY:
+			model.setHosts(payload.getHosts());
+			model.setDeployPlan(payload.getDeployPlan());
 			break;
 		case ABOUT:
 			break;
