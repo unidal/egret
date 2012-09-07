@@ -79,5 +79,18 @@
 			<role>com.dianping.egret.console.service.DeployService</role>
 			<implementation>com.dianping.egret.console.service.DeployService</implementation>
 		</component>
+		<component>
+			<role>com.dianping.egret.console.page.deploy.Handler</role>
+			<implementation>com.dianping.egret.console.page.deploy.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.egret.console.page.deploy.JspViewer</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.deploy.JspViewer</role>
+			<implementation>com.dianping.egret.console.page.deploy.JspViewer</implementation>
+		</component>
 	</components>
 </plexus>

@@ -29,25 +29,29 @@ import com.dianping.egret.home.model.transform.DefaultSaxParser;
  * @author <a href="mailto:yiming.liu@dianping.com">Yiming Liu</a>
  */
 public class ProjectService implements Initializable {
-	private static List<Project> m_projects;
+	private static Projects m_projects;
 
 	public Project findByName(String projectName) {
-		for (Project project : m_projects) {
+		for (Project project : m_projects.getProjects()) {
 			if (project.getName().equalsIgnoreCase(projectName)) {
 				return project;
 			}
 		}
 		return null;
 	}
+	
+	public List<String> getPatches() {
+		return m_projects.getPatches();
+	}
 
 	public List<Project> search(String keyword) {
 		if (keyword == null || keyword.length() == 0) {
-			return m_projects;
+			return m_projects.getProjects();
 		} else {
 			List<Project> list = new ArrayList<Project>();
 			String lowercase = keyword.toLowerCase();
 
-			for (Project project : m_projects) {
+			for (Project project : m_projects.getProjects()) {
 				List<String> jars = project.getDependencyJars();
 
 				for (String jar : jars) {
@@ -70,9 +74,7 @@ public class ProjectService implements Initializable {
 		}
 
 		try {
-			Projects projects = DefaultSaxParser.parse(in);
-
-			m_projects = projects.getProjects();
+			m_projects = DefaultSaxParser.parse(in);
 		} catch (Exception e) {
 			throw new RuntimeException("Error when loading resource(/projects.xml).");
 		}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 
 import com.dianping.egret.console.ConsolePage;
 import com.dianping.egret.console.service.DeployService;
@@ -29,16 +30,16 @@ public class Handler implements PageHandler<Context> {
 	@PayloadMeta(Payload.class)
 	@InboundActionMeta(name = "home")
 	public void handleInbound(Context ctx) throws ServletException, IOException {
-		Action action = ctx.getPayload().getAction();
+		Payload payload = ctx.getPayload();
+		Action action = payload.getAction();
 
-		switch (action) {
-		case DEPLOY:
-			List<String> hosts = ctx.getPayload().getHosts();
-			String deployPlan = ctx.getPayload().getDeployPlan();
-			// TODO process deploy
-			break;
-		default:
-			break;
+		if (action == Action.DEPLOY) {
+			List<String> hosts = payload.getHosts();
+			String plan = payload.getPlan();
+			String deployUri = ctx.getRequestContext().getActionUri(ConsolePage.DEPLOY.getName());
+
+			m_deployService.deploy(hosts, plan);
+			redirect(ctx, deployUri + "?plan=" + plan);
 		}
 	}
 
@@ -59,18 +60,21 @@ public class Handler implements PageHandler<Context> {
 			break;
 		case PROJECT:
 			Project project = m_projectService.findByName(payload.getProjectName());
+			List<String> deployPlans = m_projectService.getPatches();
+
 			model.setProject(project);
-			List<String> deployPlans = m_deployService.getDeployPlans();
 			model.setDeployPlans(deployPlans);
-			break;
-		case DEPLOY:
-			model.setHosts(payload.getHosts());
-			model.setDeployPlan(payload.getDeployPlan());
-			break;
-		case ABOUT:
 			break;
 		}
 
 		m_jspViewer.view(ctx, model);
+	}
+
+	private void redirect(Context ctx, String url) {
+		HttpServletResponse response = ctx.getHttpServletResponse();
+
+		response.setHeader("location", url);
+		response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+		ctx.stopProcess();
 	}
 }

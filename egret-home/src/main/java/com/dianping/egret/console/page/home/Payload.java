@@ -22,16 +22,16 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 	@FieldMeta("hosts")
 	private List<String> m_hosts;
 
-	@FieldMeta("deployPlan")
-	private String m_deployPlan;
+	@FieldMeta("plan")
+	private String m_plan;
 
 	@Override
 	public Action getAction() {
 		return m_action;
 	}
 
-	public String getDeployPlan() {
-		return m_deployPlan;
+	public String getPlan() {
+		return m_plan;
 	}
 
 	public List<String> getHosts() {
@@ -56,7 +56,7 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 	}
 
 	public void setDeployPlan(String deployPlan) {
-		this.m_deployPlan = deployPlan;
+		this.m_plan = deployPlan;
 	}
 
 	public void setHosts(List<String> hosts) {

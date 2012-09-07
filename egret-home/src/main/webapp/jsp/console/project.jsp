@@ -2,12 +2,9 @@
 <%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="ctx"
-	type="com.dianping.egret.console.page.home.Context" scope="request" />
-<jsp:useBean id="payload"
-	type="com.dianping.egret.console.page.home.Payload" scope="request" />
-<jsp:useBean id="model"
-	type="com.dianping.egret.console.page.home.Model" scope="request" />
+<jsp:useBean id="ctx" type="com.dianping.egret.console.page.home.Context" scope="request" />
+<jsp:useBean id="payload" type="com.dianping.egret.console.page.home.Payload" scope="request" />
+<jsp:useBean id="model" type="com.dianping.egret.console.page.home.Model" scope="request" />
 
 <a:body>
 
@@ -33,7 +30,8 @@
 		</table>
 	</div>
 
-	<form class="form-horizontal" action="?op=deploy" method="post">
+	<form class="form-horizontal" method="get">
+		<input type="hidden" name="op" value="deploy"/>
 		<div class="row-fluid">
 			<table class="table table-striped table-bordered table-condensed">
 				<caption>Host List</caption>
@@ -55,13 +53,13 @@
 		</div>
 
 		<div class="row-fluid">
-			<select name="deployPlan">
+			<select name="plan">
 				<c:forEach var="plan" items="${model.deployPlans}">
 					<option>${plan}</option>
 				</c:forEach>
 			</select>
-			<button type="submit" class="btn btn-primary">Submit Plan</button>
-			<button type="button" class="btn">Cancel</button>
+			<button type="submit" class="btn btn-primary">Deploy</button>
+			<button type="reset" class="btn">Cancel</button>
 		</div>
 	</form>
 </a:body>

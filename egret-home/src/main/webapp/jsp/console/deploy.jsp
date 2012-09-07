@@ -2,18 +2,15 @@
 <%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
-<jsp:useBean id="ctx"
-	type="com.dianping.egret.console.page.home.Context" scope="request" />
-<jsp:useBean id="payload"
-	type="com.dianping.egret.console.page.home.Payload" scope="request" />
-<jsp:useBean id="model"
-	type="com.dianping.egret.console.page.home.Model" scope="request" />
+<jsp:useBean id="ctx" type="com.dianping.egret.console.page.deploy.Context" scope="request" />
+<jsp:useBean id="payload" type="com.dianping.egret.console.page.deploy.Payload" scope="request" />
+<jsp:useBean id="model" type="com.dianping.egret.console.page.deploy.Model" scope="request" />
 
 <a:body>
 	<div class="row-fluid">
 		<div class="row-fluid">
 			<table class="table table-striped table-bordered table-condensed">
-				<caption>${model.deployPlan}</caption>
+				<caption>${model.plan}</caption>
 				<thead>
 					<tr>
 						<th>IP</th>
