@@ -1,4 +1,25 @@
 <projects>
-	<project name="name">
+	<project name="Cat">
+		<owner>yong.you</owner>
+		<hosts>
+			<host>127.0.0.1</host>
+			<host>127.0.0.2</host>
+			<host>127.0.0.3</host>
+		</hosts>
+		<dependencyJars>
+			<dependencyJar>Pigeon-1.1.jar</dependencyJar>
+			<dependencyJar>second</dependencyJar>
+		</dependencyJars>
+	</project>
+	<project name="Dog">
+		<owner>yong.you</owner>
+		<hosts>
+			<host>127.0.0.1</host>
+			<host>127.0.0.2</host>
+		</hosts>
+		<dependencyJars>
+			<dependencyJar>Pigeon-1.2.jar</dependencyJar>
+			<dependencyJar>second</dependencyJar>
+		</dependencyJars>
 	</project>
 </projects>

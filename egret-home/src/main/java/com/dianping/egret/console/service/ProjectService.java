@@ -14,50 +14,67 @@
  */
 package com.dianping.egret.console.service;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
+import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
+
+import com.dianping.egret.home.model.entity.Project;
+import com.dianping.egret.home.model.entity.Projects;
+import com.dianping.egret.home.model.transform.DefaultSaxParser;
 
 /**
  * @author <a href="mailto:yiming.liu@dianping.com">Yiming Liu</a>
  */
-public class ProjectService {
+public class ProjectService implements Initializable {
+	private static List<Project> m_projects;
 
-	private static List<Project> m_projects = null;
-
-	public Project findByName(String projectName){
-		for(Project project:m_projects){
-			if( project.getName().equalsIgnoreCase(projectName)){
+	public Project findByName(String projectName) {
+		for (Project project : m_projects) {
+			if (project.getName().equalsIgnoreCase(projectName)) {
 				return project;
 			}
 		}
 		return null;
 	}
-	
+
 	public List<Project> search(String keyword) {
-		if (m_projects == null) {
-			int length = 10;
-			List<Project> result = new ArrayList<Project>(length);
-			for (int i = 0; i < length; i++) {
-				Project project = new Project();
-				project.setName("Project" + i);
-				project.setOwner("Owner" + i);
-				List<String> hosts = new ArrayList<String>();
-				for (int j = 0; j < length / 2; j++) {
-					hosts.add("127.0.0." + (j + 1));
+		if (keyword == null || keyword.length() == 0) {
+			return m_projects;
+		} else {
+			List<Project> list = new ArrayList<Project>();
+			String lowercase = keyword.toLowerCase();
+
+			for (Project project : m_projects) {
+				List<String> jars = project.getDependencyJars();
+
+				for (String jar : jars) {
+					if (jar.toLowerCase().contains(lowercase)) {
+						list.add(project);
+					}
 				}
-				project.setHosts(hosts);
-				List<String> jars = new ArrayList<String>();
-				Random random = new Random();
-				for (int j = 0; j < length * 2; j++) {
-					jars.add("samplejar-" + random.nextInt(10) + "." + random.nextInt(10) + "." + random.nextInt(10));
-				}
-				project.setDependencyJars(jars);
-				result.add(project);
 			}
 
-			m_projects = result;
+			return list;
 		}
-		return m_projects;
+	}
+
+	@Override
+	public void initialize() throws InitializationException {
+		InputStream in = getClass().getResourceAsStream("/projects.xml");
+
+		if (in == null) {
+			throw new RuntimeException("Resource(/projects.xml) is not found at classpath!");
+		}
+
+		try {
+			Projects projects = DefaultSaxParser.parse(in);
+
+			m_projects = projects.getProjects();
+		} catch (Exception e) {
+			throw new RuntimeException("Error when loading resource(/projects.xml).");
+		}
 	}
 }

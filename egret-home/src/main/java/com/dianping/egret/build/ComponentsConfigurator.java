@@ -13,6 +13,7 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		List<Component> all = new ArrayList<Component>();
 
 		all.add(C(ProjectService.class));
+
 		// Please keep it as last
 		all.addAll(new WebComponentConfigurator().defineComponents());
 
