@@ -5,7 +5,9 @@ import com.site.web.mvc.annotation.ModuleMeta;
 
 public enum AgentPage implements Page {
 
-   HOME("home", "home", "Home", "Home", true);
+   HOME("home", "home", "Home", "Home", true),
+
+   DEPLOY("deploy", "deploy", "Deploy", "Deploy", true);
 
    private String m_name;
 

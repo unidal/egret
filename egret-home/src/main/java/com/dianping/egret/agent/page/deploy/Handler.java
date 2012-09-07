@@ -24,6 +24,7 @@ public class Handler implements PageHandler<Context> {
 
 		switch (payload.getAction()) {
 		case PREPARE:
+			ctx.getHttpServletResponse().getOutputStream().write(payload.getVersion().getBytes());
 			break;
 		}
 	}
