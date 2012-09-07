@@ -15,7 +15,7 @@ class WebComponentConfigurator extends AbstractWebComponentsConfigurator {
 	public List<Component> defineComponents() {
 		List<Component> all = new ArrayList<Component>();
 
-		defineModuleRegistry(all, AgentModule.class, AgentModule.class, ConsoleModule.class);
+		defineModuleRegistry(all, ConsoleModule.class, AgentModule.class, ConsoleModule.class);
 
 		return all;
 	}

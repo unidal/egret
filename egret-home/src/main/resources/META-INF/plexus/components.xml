@@ -5,8 +5,8 @@
 			<implementation>com.site.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>
 				<modules>
-					<module default="true">com.dianping.egret.agent.AgentModule</module>
-					<module>com.dianping.egret.console.ConsoleModule</module>
+					<module>com.dianping.egret.agent.AgentModule</module>
+					<module default="true">com.dianping.egret.console.ConsoleModule</module>
 				</modules>
 			</configuration>
 		</component>
@@ -43,6 +43,19 @@
 		<component>
 			<role>com.dianping.egret.console.page.home.JspViewer</role>
 			<implementation>com.dianping.egret.console.page.home.JspViewer</implementation>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.projects.Handler</role>
+			<implementation>com.dianping.egret.console.page.projects.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.egret.console.page.projects.JspViewer</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.projects.JspViewer</role>
+			<implementation>com.dianping.egret.console.page.projects.JspViewer</implementation>
 		</component>
 	</components>
 </plexus>
