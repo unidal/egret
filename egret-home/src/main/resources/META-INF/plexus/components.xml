@@ -5,8 +5,8 @@
 			<implementation>com.site.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>
 				<modules>
-					<module default="true">com.dianping.egret.agent.AgentModule</module>
-					<module>com.dianping.egret.console.ConsoleModule</module>
+					<module>com.dianping.egret.agent.AgentModule</module>
+					<module default="true">com.dianping.egret.console.ConsoleModule</module>
 				</modules>
 			</configuration>
 		</component>
