@@ -73,35 +73,45 @@
                   <additionalConfig>
                      <file>
                         <name>.settings/org.eclipse.jdt.core.prefs</name>
-                        <content><![CDATA[org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.6
+                        <content><![CDATA[
 eclipse.preferences.version=1
 org.eclipse.jdt.core.compiler.source=1.6
 org.eclipse.jdt.core.compiler.compliance=1.6]]></content>
-                     </file>
-                  </additionalConfig>
-               </configuration>
-            </plugin>
-         </plugins>
-      </pluginManagement>
-      <plugins>
-         <plugin>
-            <groupId>org.unidal.maven.plugins</groupId>
-            <artifactId>codegen-maven-plugin</artifactId>
-            <version>1.1.4</version>
-            <executions>
-               <execution>
-                  <id>generate plexus component descriptor</id>
-                  <phase>process-classes</phase>
-                  <goals>
-                     <goal>plexus</goal>
-                  </goals>
-                  <configuration>
-                     <className>com.dianping.egret.build.ComponentsConfigurator</className>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-      </plugins>
-   </build>
+							</file>
+						</additionalConfig>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.unidal.maven.plugins</groupId>
+				<artifactId>codegen-maven-plugin</artifactId>
+				<version>1.1.7</version>
+				<executions>
+					<execution>
+						<id>generate projects model</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>dal-model</goal>
+						</goals>
+						<configuration>
+							<manifest>${basedir}/src/main/resources/META-INF/dal/model/projects-manifest.xml</manifest>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate plexus component descriptor</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>plexus</goal>
+						</goals>
+						<configuration>
+							<className>com.dianping.egret.build.ComponentsConfigurator</className>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
 
