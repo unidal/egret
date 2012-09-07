@@ -56,11 +56,9 @@
 	<div class="row-fluid">
 		<h4>Select Plan</h4>
 		<select>
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-			<option>5</option>
+			<c:forEach var="plan" items="${model.deployPlans}">
+				<option>${plan}</option>
+			</c:forEach>
 		</select>
 		<button type="submit" class="btn btn-primary">Submit Plan</button>
 		<button type="button" class="btn">Cancel</button>

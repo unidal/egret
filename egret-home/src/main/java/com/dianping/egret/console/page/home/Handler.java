@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import com.dianping.egret.console.ConsolePage;
+import com.dianping.egret.console.service.DeployService;
 import com.dianping.egret.console.service.Project;
 import com.dianping.egret.console.service.ProjectService;
 import com.site.lookup.annotation.Inject;
@@ -21,6 +22,9 @@ public class Handler implements PageHandler<Context> {
 	@Inject
 	private ProjectService m_projectService;
 	
+	@Inject
+	private DeployService m_deployService;
+
 	@Override
 	@PayloadMeta(Payload.class)
 	@InboundActionMeta(name = "home")
@@ -30,7 +34,6 @@ public class Handler implements PageHandler<Context> {
 		case HOME:
 			break;
 		case PROJECT:
-			String projectName = ctx.getPayload().getProjectName();
 			break;
 		case DEPLOY:
 			break;
@@ -46,15 +49,16 @@ public class Handler implements PageHandler<Context> {
 		Action action = ctx.getPayload().getAction();
 		switch (action) {
 		case HOME:
-			if(model.getProjects()==null){
-				List<Project> projects =m_projectService.search("");
-				model.setProjects(projects);
-			}
+			String keyword = ctx.getPayload().getKeyword();
+			List<Project> projects = m_projectService.search(keyword);
+			model.setProjects(projects);
 			break;
 		case PROJECT:
 			String projectName = ctx.getPayload().getProjectName();
 			Project project = m_projectService.findByName(projectName);
 			model.setProject(project);
+			List<String> deployPlans = m_deployService.getDeployPlans();
+			model.setDeployPlans(deployPlans);
 			break;
 		case DEPLOY:
 			break;

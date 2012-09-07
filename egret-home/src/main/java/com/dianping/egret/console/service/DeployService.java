@@ -14,9 +14,18 @@
  */
 package com.dianping.egret.console.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:yiming.liu@dianping.com">Yiming Liu</a>
  */
 public class DeployService {
 
+	public List<String> getDeployPlans() {
+		List<String> deployPlans = new ArrayList<String>();
+		deployPlans.add("ABC");
+		deployPlans.add("BCD");
+		return deployPlans;
+	}
 }

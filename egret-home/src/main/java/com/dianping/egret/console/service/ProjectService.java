@@ -25,19 +25,19 @@ public class ProjectService {
 
 	private static List<Project> m_projects = null;
 
-	public Project findByName(String projectName){
-		for(Project project:m_projects){
-			if( project.getName().equalsIgnoreCase(projectName)){
+	public Project findByName(String projectName) {
+		for (Project project : m_projects) {
+			if (project.getName().equalsIgnoreCase(projectName)) {
 				return project;
 			}
 		}
 		return null;
 	}
-	
+
 	public List<Project> search(String keyword) {
 		if (m_projects == null) {
 			int length = 10;
-			List<Project> result = new ArrayList<Project>(length);
+			List<Project> sampleProjects = new ArrayList<Project>(length);
 			for (int i = 0; i < length; i++) {
 				Project project = new Project();
 				project.setName("Project" + i);
@@ -53,11 +53,25 @@ public class ProjectService {
 					jars.add("samplejar-" + random.nextInt(10) + "." + random.nextInt(10) + "." + random.nextInt(10));
 				}
 				project.setDependencyJars(jars);
-				result.add(project);
+				sampleProjects.add(project);
 			}
 
-			m_projects = result;
+			m_projects = sampleProjects;
 		}
-		return m_projects;
+
+		if (keyword == null || keyword.trim().length() == 0) {
+			return m_projects;
+		}
+
+		List<Project> result = new ArrayList<Project>();
+		for (Project project : m_projects) {
+			for (String jar : project.getDependencyJars()) {
+				if (jar.indexOf(keyword) != -1) {
+					result.add(project);
+					break;
+				}
+			}
+		}
+		return result;
 	}
 }

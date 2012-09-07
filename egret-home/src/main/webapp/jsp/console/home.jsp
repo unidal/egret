@@ -14,10 +14,10 @@
 	<div class="row-fluid">
 		<div class="row-fluid">
 			<!-- project search form -->
-			<form class="form-search">
+			<form class="form-search" action="home">
 				<div class="input-append">
 					<input type="text" class="search-query input-large"
-						placeholder="jar-version">
+						placeholder="jar-version" name="keyword">
 					<button type="submit" class="btn">Search</button>
 				</div>
 			</form>
