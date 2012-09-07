@@ -4,7 +4,7 @@
 <jsp:useBean id="payload" type="com.dianping.egret.console.page.deploy.Payload" scope="request" />
 <jsp:useBean id="model" type="com.dianping.egret.console.page.deploy.Model" scope="request" />
 {
-	offset: 10,
-	content: "Hello World",
-	progress: 50
+	offset: ${model.offset},
+	content: "${model.log}",
+	progress: ${model.progress}
 }

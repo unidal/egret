@@ -2,13 +2,11 @@
 	<project name="Cat">
 		<owner>yong.you</owner>
 		<hosts>
-			<host>127.0.0.1</host>
-			<host>127.0.0.2</host>
-			<host>127.0.0.3</host>
+			<host>192.168.62.180</host>
 		</hosts>
 		<dependencyJars>
 			<dependencyJar>Pigeon-1.1.jar</dependencyJar>
-			<dependencyJar>second</dependencyJar>
+			<dependencyJar>Cat-1.0.jar</dependencyJar>
 		</dependencyJars>
 	</project>
 	<project name="Dog">
@@ -18,10 +16,10 @@
 			<host>127.0.0.2</host>
 		</hosts>
 		<dependencyJars>
+			<dependencyJar>Pigeon-1.2.jar</dependencyJar>
 			<dependencyJar>Cat-1.2.jar</dependencyJar>
-			<dependencyJar>second</dependencyJar>
 		</dependencyJars>
 	</project>
-	<patch>patch1</patch>
-	<patch>patch2</patch>
+	<patch>platform-sdk:1.1</patch>
+	<patch>platform-sdk:1.2</patch>
 </projects>

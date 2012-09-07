@@ -46,6 +46,7 @@ public class Handler implements PageHandler<Context> {
 			model.setLog(sb.toString());
 			model.setProgress(progress);
 			model.setOffset(offset + logs);
+			break;
 		default:
 			break;
 		}

@@ -1,6 +1,7 @@
 package com.dianping.egret.console.page.deploy;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.dianping.egret.console.ConsolePage;
 import com.site.web.mvc.ViewModel;
@@ -31,6 +32,10 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 
 	public String getLog() {
 		return m_log;
+	}
+
+	public String getQuotedLog() {
+		return m_log == null ? null : m_log.replace(Pattern.quote("\""), "\\\"");
 	}
 
 	public int getOffset() {
