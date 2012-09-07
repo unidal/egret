@@ -15,6 +15,7 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 
 		all.add(C(ProjectService.class));
 		all.add(C(DeployService.class));
+
 		// Please keep it as last
 		all.addAll(new WebComponentConfigurator().defineComponents());
 

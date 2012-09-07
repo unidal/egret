@@ -5,6 +5,10 @@
 			<implementation>com.dianping.egret.console.service.ProjectService</implementation>
 		</component>
 		<component>
+			<role>com.dianping.egret.console.service.DeployService</role>
+			<implementation>com.dianping.egret.console.service.DeployService</implementation>
+		</component>
+		<component>
 			<role>com.site.web.mvc.model.ModuleRegistry</role>
 			<implementation>com.site.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>
@@ -49,6 +53,9 @@
 				<requirement>
 					<role>com.dianping.egret.console.service.ProjectService</role>
 				</requirement>
+				<requirement>
+					<role>com.dianping.egret.console.service.DeployService</role>
+				</requirement>
 			</requirements>
 		</component>
 		<component>
@@ -58,6 +65,10 @@
 		<component>
 			<role>com.dianping.egret.console.service.ProjectService</role>
 			<implementation>com.dianping.egret.console.service.ProjectService</implementation>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.service.DeployService</role>
+			<implementation>com.dianping.egret.console.service.DeployService</implementation>
 		</component>
 	</components>
 </plexus>

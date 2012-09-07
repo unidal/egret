@@ -22,6 +22,10 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 		return m_action;
 	}
 
+	public String getKeyword() {
+		return this.m_keyword;
+	}
+
 	@Override
 	public ConsolePage getPage() {
 		return m_page;
@@ -33,6 +37,10 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 
 	public void setAction(String action) {
 		m_action = Action.getByName(action, Action.HOME);
+	}
+
+	public void setKeyword(String keyword) {
+		this.m_keyword = keyword;
 	}
 
 	@Override
@@ -49,13 +57,5 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 		if (m_action == null) {
 			m_action = Action.HOME;
 		}
-	}
-
-	public void setKeyword(String keyword) {
-		this.m_keyword = keyword;
-	}
-
-	public String getKeyword() {
-		return this.m_keyword;
 	}
 }

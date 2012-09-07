@@ -3,7 +3,7 @@ package com.dianping.egret.console.page.home;
 import java.util.List;
 
 import com.dianping.egret.console.ConsolePage;
-import com.dianping.egret.console.service.Project;
+import com.dianping.egret.home.model.entity.Project;
 import com.site.web.mvc.ViewModel;
 
 public class Model extends ViewModel<ConsolePage, Action, Context> {
