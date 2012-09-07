@@ -1,6 +1,14 @@
 <plexus>
 	<components>
 		<component>
+			<role>com.dianping.egret.console.service.ProjectService</role>
+			<implementation>com.dianping.egret.console.service.ProjectService</implementation>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.service.DeployService</role>
+			<implementation>com.dianping.egret.console.service.DeployService</implementation>
+		</component>
+		<component>
 			<role>com.site.web.mvc.model.ModuleRegistry</role>
 			<implementation>com.site.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>
@@ -42,6 +50,12 @@
 				<requirement>
 					<role>com.dianping.egret.console.page.home.JspViewer</role>
 				</requirement>
+				<requirement>
+					<role>com.dianping.egret.console.service.ProjectService</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.egret.console.service.DeployService</role>
+				</requirement>
 			</requirements>
 		</component>
 		<component>
@@ -49,69 +63,12 @@
 			<implementation>com.dianping.egret.console.page.home.JspViewer</implementation>
 		</component>
 		<component>
-			<role>com.dianping.egret.console.page.projects.Handler</role>
-			<implementation>com.dianping.egret.console.page.projects.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.egret.console.page.projects.JspViewer</role>
-				</requirement>
-			</requirements>
+			<role>com.dianping.egret.console.service.ProjectService</role>
+			<implementation>com.dianping.egret.console.service.ProjectService</implementation>
 		</component>
 		<component>
-			<role>com.dianping.egret.console.page.projects.JspViewer</role>
-			<implementation>com.dianping.egret.console.page.projects.JspViewer</implementation>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.project.Handler</role>
-			<implementation>com.dianping.egret.console.page.project.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.egret.console.page.project.JspViewer</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.project.JspViewer</role>
-			<implementation>com.dianping.egret.console.page.project.JspViewer</implementation>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.deploy.Handler</role>
-			<implementation>com.dianping.egret.console.page.deploy.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.egret.console.page.deploy.JspViewer</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.deploy.JspViewer</role>
-			<implementation>com.dianping.egret.console.page.deploy.JspViewer</implementation>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.monitor.Handler</role>
-			<implementation>com.dianping.egret.console.page.monitor.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.egret.console.page.monitor.JspViewer</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.monitor.JspViewer</role>
-			<implementation>com.dianping.egret.console.page.monitor.JspViewer</implementation>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.about.Handler</role>
-			<implementation>com.dianping.egret.console.page.about.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.egret.console.page.about.JspViewer</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.egret.console.page.about.JspViewer</role>
-			<implementation>com.dianping.egret.console.page.about.JspViewer</implementation>
+			<role>com.dianping.egret.console.service.DeployService</role>
+			<implementation>com.dianping.egret.console.service.DeployService</implementation>
 		</component>
 	</components>
 </plexus>

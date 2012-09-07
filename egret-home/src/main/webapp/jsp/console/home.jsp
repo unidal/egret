@@ -1,136 +1,47 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<jsp:useBean id="ctx"
-	type="com.dianping.egret.console.page.home.Context" scope="request" />
-<jsp:useBean id="payload"
-	type="com.dianping.egret.console.page.home.Payload" scope="request" />
-<jsp:useBean id="model"
-	type="com.dianping.egret.console.page.home.Model" scope="request" />
+<%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
+<jsp:useBean id="ctx" type="com.dianping.egret.console.page.home.Context" scope="request" />
+<jsp:useBean id="payload" type="com.dianping.egret.console.page.home.Payload" scope="request" />
+<jsp:useBean id="model" type="com.dianping.egret.console.page.home.Model" scope="request" />
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Egret, from Dianping</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
+<a:body>
 
-<!-- Le styles -->
-<link href="../css/bootstrap.css" rel="stylesheet">
-<style type="text/css">
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
-
-.sidebar-nav {
-	padding: 9px 0;
-}
-</style>
-<link href="../css/bootstrap-responsive.css" rel="stylesheet">
-
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="#">Project name</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li class="active"><a href="home">Home</a></li>
-						<li><a href="about">About</a></li>
-					</ul>
-				</div>
-				<!--/.nav-collapse -->
-			</div>
-		</div>
-	</div>
-
-	<div class="container-fluid">
+	<div class="row-fluid">
 		<div class="row-fluid">
-			<div class="span3">
-				<div class="well sidebar-nav">
-					<ul class="nav nav-list">
-						<li class="nav-header"></li>
-						<li><a href="projects">List Projects</a></li>
-						<li><a href="deploy">Deploy Jars</a></li>
-					</ul>
+			<!-- project search form -->
+			<form class="form-search" action="?op=home">
+				<div class="input-append">
+					<input type="text" name="keyword" value="${payload.keyword}" class="search-query input-large" placeholder="jar-version">
+					<button type="submit" class="btn">Search</button>
 				</div>
-				<!--/.well -->
-			</div>
-			<!--/span-->
-			<div class="span9">
-				<div class="hero-unit">
-					<h1>Egret</h1>
-					<p>统一替换架构某个产品的JAR包，在此过程中确保⼀ 些列的安全，包括正确性验证，失败回滚等</p>
-					<p>
-						<a class="btn btn-primary btn-large">Learn more &raquo;</a>
-					</p>
-				</div>
-				<div class="row-fluid">
-					<div class="span4">
-						<h2>快速迭代、敢于尝试</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-					<div class="span4">
-						<h2>拥抱变化、及时响应</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-					<div class="span4">
-						<h2>敏捷开发、敏捷发布</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-				</div>
-				<!--/row-->
-			</div>
-			<!--/span-->
+			</form>
+		</div>
+		<!-- project list -->
+		<div class="row-fluid">
+			<table class="table table-striped table-hover">
+				<caption></caption>
+				<thead>
+					<tr>
+						<th>Project</th>
+						<th>Owner</th>
+						<th>Hosts</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="project" items="${model.projects}">
+						<tr>
+							<td><a href="?op=project&name=${project.name}">${project.name}</a></td>
+							<td>${project.owner}</td>
+							<td>${project.hosts}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
 		<!--/row-->
-
-		<hr>
-
-		<footer>
-			<p>&copy; 远征军@Dianping 2012</p>
-		</footer>
-
 	</div>
-	<!--/.fluid-container-->
+	<!--/row-->
 
-	<!-- Le javascript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="../js/jquery-1.8.1.min.js"></script>
-	<script src="../js/bootstrap.js"></script>
-
-</body>
-</html>
+</a:body>
