@@ -1,9 +1,13 @@
 package com.dianping.egret.console.page.home;
 
 public enum JspFile {
-	VIEW("/jsp/console/home.jsp"),
+	HOME("/jsp/console/home.jsp"),
 
-	;
+	PROJECT("/jsp/console/project.jsp"),
+
+	ABOUT("/jsp/console/about.jsp"),
+
+	DEPLOY("/jsp/console/deploy.jsp");
 
 	private String m_path;
 

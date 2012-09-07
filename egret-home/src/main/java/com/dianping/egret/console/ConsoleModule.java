@@ -9,15 +9,6 @@ import com.site.web.mvc.annotation.ModulePagesMeta;
 
 com.dianping.egret.console.page.home.Handler.class,
 
-com.dianping.egret.console.page.projects.Handler.class,
-
-com.dianping.egret.console.page.project.Handler.class,
-
-com.dianping.egret.console.page.deploy.Handler.class,
-
-com.dianping.egret.console.page.monitor.Handler.class,
-
-com.dianping.egret.console.page.about.Handler.class
 })
 public class ConsoleModule extends AbstractModule {
 

@@ -1,7 +1,13 @@
 package com.dianping.egret.console.page.home;
 
 public enum Action implements com.site.web.mvc.Action {
-	VIEW("view");
+	HOME("home"),
+
+	PROJECT("project"),
+
+	DEPLOY("deploy"),
+
+	ABOUT("about");
 
 	private String m_name;
 
