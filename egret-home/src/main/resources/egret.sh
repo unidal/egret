@@ -5,7 +5,7 @@ WEBAPP_DIR=/Users/marsqing/Projects/tmp/egret-webapp/
 TOMCAT_DIR="/Users/marsqing/Projects/tmp/apache-tomcat-5.5.34/"
 
 function prepare {
-	echo "do prepare"
+	echo "do prepare<br/>"
 	rm -rf $LIB_DIR
 	git clone ssh://git@192.168.8.22:58422/egretlib $LIB_DIR
 	#check if version compatible
@@ -21,22 +21,22 @@ function prepare {
 }
 
 function activate {
-	echo "do "activate
+	echo "do activate<br/>"
 	if [ ! -d $WEBAPP_DIR/WEB-INF/lib ]
 	then
 		echo "no webapp dir"
 		mkdir -p $WEBAPP_DIR/WEB-INF/lib/
 	fi
-	bash $TOMCAT_DIR/bin/shutdown.sh > /dev/null
-	cp $LIB_DIR/*.jar $WEBAPP_DIR/WEB-INF/lib/ > /dev/null 2>&1
+	bash $TOMCAT_DIR/bin/shutdown.sh
+	cp $LIB_DIR/*.jar $WEBAPP_DIR/WEB-INF/lib/
 	cd $WEBAPP_DIR
 	git add *
-	bash $TOMCAT_DIR/bin/startup.sh > /dev/null
+	bash $TOMCAT_DIR/bin/startup.sh
 	exit 0
 }
 
 function commit {
-	echo "do commit"
+	echo "do commit<br/>"
 	cd $WEBAPP_DIR
 	git add *
 	git commit -m "`date`"
@@ -46,7 +46,7 @@ function commit {
 }
 
 function rollback {
-	echo "do rollback"
+	echo "do rollback<br/>"
 	if [ x$2 = "x" ]
 	then
 		cd $WEBAPP_DIR
