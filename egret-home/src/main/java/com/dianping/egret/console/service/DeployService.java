@@ -30,6 +30,15 @@ public class DeployService {
 		return false;
 	}
 
+	public List<String> getHostsByPlan(String plan) {
+		DeployInfo info = m_infos.get(plan);
+
+		if (info == null) {
+			return new ArrayList<String>();
+		}
+		return info.getHosts();
+	}
+
 	public int getLog(String plan, int offset, StringBuilder sb) {
 		DeployInfo info = m_infos.get(plan);
 
@@ -37,7 +46,13 @@ public class DeployService {
 			return 0;
 		}
 
-		return info.getLog(offset, sb);
+		try {
+			return info.getLog(offset, sb);
+		} finally {
+			if (info.isComplete()) {
+				//m_infos.remove(plan); //TODO
+			}
+		}
 	}
 
 	public int getProgress(String plan) {
@@ -76,7 +91,7 @@ public class DeployService {
 			int len = m_logs.size();
 
 			for (int i = offset; i < len; i++) {
-				sb.append(m_logs.get(i)).append("<br>\r\n");
+				sb.append(m_logs.get(i)).append("<br>\\r\\n");
 			}
 
 			return Math.max(0, len - offset);
@@ -88,6 +103,10 @@ public class DeployService {
 
 		public int getProgress() {
 			return m_progress;
+		}
+
+		public boolean isComplete() {
+			return m_progress == 100;
 		}
 
 		public void setProgress(int progress) {

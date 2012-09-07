@@ -28,9 +28,9 @@
 				<caption></caption>
 				<thead>
 					<tr>
-						<th>Project</th>
-						<th>Owner</th>
-						<th>Hosts</th>
+						<th width="10%">Project</th>
+						<th width="10%">Owner</th>
+						<th width="20%">Hosts</th>
 						<th>DependencyJars</th>
 					</tr>
 				</thead>
