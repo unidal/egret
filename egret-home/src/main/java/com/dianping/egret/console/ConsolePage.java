@@ -7,7 +7,15 @@ public enum ConsolePage implements Page {
 
    HOME("home", "home", "Home", "Home", true),
 
-   PROJECTS("projects", "projects", "Projects", "Projects", true);
+   PROJECTS("projects", "projects", "Projects", "Projects", true),
+
+   PROJECT("project", "project", "Project", "Project", true),
+
+   DEPLOY("deploy", "deploy", "Deploy", "Deploy", true),
+
+   MONITOR("monitor", "monitor", "Monitor", "Monitor", true),
+
+   ABOUT("about", "about", "About", "About", true);
 
    private String m_name;
 
