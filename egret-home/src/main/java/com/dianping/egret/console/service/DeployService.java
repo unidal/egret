@@ -24,14 +24,14 @@ public class DeployService {
 		return false;
 	}
 
-	public String getLog(String plan, int offset) {
+	public int getLog(String plan, int offset, StringBuilder sb) {
 		DeployInfo info = m_infos.get(plan);
 
 		if (info == null) {
-			return null;
+			return 0;
 		}
 
-		return info.getLog(offset);
+		return info.getLog(offset, sb);
 	}
 
 	public int getProgress(String plan) {
@@ -66,8 +66,14 @@ public class DeployService {
 			return m_hosts;
 		}
 
-		public String getLog(int offset) {
-			return null;
+		public int getLog(int offset, StringBuilder sb) {
+			int len = m_logs.size();
+
+			for (int i = offset; i < len; i++) {
+				sb.append(m_logs.get(i));
+			}
+
+			return Math.max(0, len - offset);
 		}
 
 		public List<String> getLogs() {
@@ -101,6 +107,8 @@ public class DeployService {
 
 		@Override
 		public void run() {
+			int progress = 0;
+
 			while (true) {
 				// TODO
 			}
