@@ -43,7 +43,7 @@
 		<hr>
 
 		<footer>
-			<p>&copy; 远征军@Dianping 2012</p>
+			<p> Egret@Dianping 2012</p>
 		</footer>
 
 	</div>

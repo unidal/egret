@@ -1,6 +1,10 @@
 <plexus>
 	<components>
 		<component>
+			<role>com.dianping.egret.console.service.ProjectService</role>
+			<implementation>com.dianping.egret.console.service.ProjectService</implementation>
+		</component>
+		<component>
 			<role>com.site.web.mvc.model.ModuleRegistry</role>
 			<implementation>com.site.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>
@@ -42,11 +46,18 @@
 				<requirement>
 					<role>com.dianping.egret.console.page.home.JspViewer</role>
 				</requirement>
+				<requirement>
+					<role>com.dianping.egret.console.service.ProjectService</role>
+				</requirement>
 			</requirements>
 		</component>
 		<component>
 			<role>com.dianping.egret.console.page.home.JspViewer</role>
 			<implementation>com.dianping.egret.console.page.home.JspViewer</implementation>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.service.ProjectService</role>
+			<implementation>com.dianping.egret.console.service.ProjectService</implementation>
 		</component>
 	</components>
 </plexus>

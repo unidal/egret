@@ -10,24 +10,35 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 
 	@FieldMeta("op")
 	private Action m_action;
+	
+	@FieldMeta("name")
+	private String m_projectName;
+
+	@Override
+	public Action getAction() {
+		return m_action;
+	}
+	
+	@Override
+	public ConsolePage getPage() {
+		return m_page;
+	}
+	
+	public String getProjectName(){
+		return m_projectName;
+	}
 
 	public void setAction(String action) {
 		m_action = Action.getByName(action, Action.HOME);
 	}
 
 	@Override
-	public Action getAction() {
-		return m_action;
-	}
-
-	@Override
-	public ConsolePage getPage() {
-		return m_page;
-	}
-
-	@Override
 	public void setPage(String page) {
 		m_page = ConsolePage.getByName(page, ConsolePage.HOME);
+	}
+
+	public void setProjectName(String projectName){
+		this.m_projectName = projectName;
 	}
 
 	@Override

@@ -1,33 +1,33 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
-<jsp:useBean id="ctx" type="com.dianping.egret.console.page.home.Context" scope="request" />
-<jsp:useBean id="payload" type="com.dianping.egret.console.page.home.Payload" scope="request" />
-<jsp:useBean id="model" type="com.dianping.egret.console.page.home.Model" scope="request" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="ctx"
+	type="com.dianping.egret.console.page.home.Context" scope="request" />
+<jsp:useBean id="payload"
+	type="com.dianping.egret.console.page.home.Payload" scope="request" />
+<jsp:useBean id="model"
+	type="com.dianping.egret.console.page.home.Model" scope="request" />
 
 <a:body>
 
 	<div class="row-fluid">
 		<table class="table table-striped table-bordered">
-			<caption>Project Name</caption>
-			<thead>
-				<tr>
-					<th>Property</th>
-					<th>Value</th>
-				</tr>
-			</thead>
+			<caption>${model.project.name}</caption>
 			<tbody>
 				<tr>
-					<td>Version</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Description</td>
-					<td></td>
+					<td>Owner</td>
+					<td>${model.project.owner}</td>
 				</tr>
 				<tr>
 					<td>Dependency</td>
-					<td></td>
+					<td>
+						<ul>
+							<c:forEach var="jar" items="${model.project.dependencyJars}">
+								<li>${jar}</li>
+							</c:forEach>
+						</ul>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -35,7 +35,7 @@
 
 	<div class="row-fluid">
 		<table class="table table-striped table-bordered table-condensed">
-			<caption>Server List</caption>
+			<caption>Host List</caption>
 			<thead>
 				<tr>
 					<th></th>
@@ -43,14 +43,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>127.0.0.1</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>127.0.0.2</td>
-				</tr>
+				<c:forEach var="ip" items="${model.project.hosts}">
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>${ip}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
