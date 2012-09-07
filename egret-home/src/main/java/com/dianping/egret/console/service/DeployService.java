@@ -11,6 +11,15 @@ import com.site.helper.Threads.Task;
 public class DeployService {
 	private Map<String, DeployInfo> m_infos = new HashMap<String, DeployInfo>();
 
+	public List<String> getHostsByPlan(String plan) {
+		DeployInfo info = m_infos.get(plan);
+		
+		if (info == null) {
+			return new ArrayList<String>();
+		}
+		return info.getHosts();
+	}
+
 	public synchronized boolean deploy(List<String> hosts, String plan) {
 		if (m_infos.containsKey(plan)) {
 			DeployInfo info = new DeployInfo(plan, hosts);

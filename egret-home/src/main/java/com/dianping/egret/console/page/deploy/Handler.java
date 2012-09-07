@@ -23,7 +23,6 @@ public class Handler implements PageHandler<Context> {
 	@PayloadMeta(Payload.class)
 	@InboundActionMeta(name = "deploy")
 	public void handleInbound(Context ctx) throws ServletException, IOException {
-		// display only, no action here
 	}
 
 	@Override
@@ -35,6 +34,8 @@ public class Handler implements PageHandler<Context> {
 		model.setAction(payload.getAction());
 		model.setPage(ConsolePage.DEPLOY);
 
+		String planName = payload.getPlan();
+		model.setHosts(m_service.getHostsByPlan(planName));
 		switch (payload.getAction()) {
 		case LOG:
 			StringBuilder sb = new StringBuilder(1024);
@@ -42,8 +43,7 @@ public class Handler implements PageHandler<Context> {
 			int offset = payload.getOffset();
 			int logs = m_service.getLog(plan, offset, sb);
 			int progress = m_service.getProgress(plan);
-
-			model.setLog(sb.toString());
+			model.setLog("\""+sb.toString()+"\"");
 			model.setProgress(progress);
 			model.setOffset(offset + logs);
 		default:

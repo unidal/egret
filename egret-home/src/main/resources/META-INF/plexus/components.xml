@@ -86,6 +86,9 @@
 				<requirement>
 					<role>com.dianping.egret.console.page.deploy.JspViewer</role>
 				</requirement>
+				<requirement>
+					<role>com.dianping.egret.console.service.DeployService</role>
+				</requirement>
 			</requirements>
 		</component>
 		<component>

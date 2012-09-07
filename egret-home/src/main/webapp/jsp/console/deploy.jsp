@@ -16,7 +16,7 @@
 				<caption>${model.plan}</caption>
 				<thead>
 					<tr>
-						<th>IP</th>
+						<th>Remote Deploy Log</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,12 +30,12 @@
 		</div>
 
 		<div class="progress progress-info progress-striped">
-			<div id="progressbar" class="bar" style="width: 60%;"></div>
+			<div id="progressbar" class="bar" style="width: 0%;"></div>
 		</div>
 
 		<div class="row-fluid">
 			<div id="status" data-spy="scroll" data-offset="0"
-				class="scrollspy-example">
+				class="scrollspy-example" style="height:300px;line-height:20px;overflow:auto;">
 				<span class="label label-default"> ${model.log} </span>
 			</div>
 
@@ -43,7 +43,7 @@
 				Completed</div>
 		</div>
 	</div>
-	<input type="hidden" name="offset" value="${model.offset}">
+	<input type="hidden" id="offset" name="offset" value="${model.offset}">
 	<script type="text/javascript">
 		
 		function updateDeployStatus() {
@@ -54,27 +54,32 @@
 							url : "?op=log",
 							dataType : "json",
 							data : {
-								"offset" : ${offset}
+								offset : $("#offset").val()
 							},
-							success : function(offset, content, progress) {
-								//alert(msg);
+							error:function(xhRequest, ErrorText, thrownError){
+								console.log(xhRequest);
+								console.log(ErrorText);
+								console.log(thrownError);
+							},
+							success : function(data) {	
+									$("#status").prepend(
+											"<p><span class=\"label label-default\">"+data.offset+" "+data.content+"</span></p>");
+									$("#progressbar").css("width", data.progress+"%");
 
-									$("#status").append(
-											"<span class=\"label label-")
-											.append("default").append("\">").append(
-													msgid).append(" ").append(
-													content).append("</span>");
-									$("#progressbar").css("width", progress);
-
-									offset = msgid;
+									$("#offset").val(data.offset);
 									
-									if(progress=100){
+									if(data.progress>=20){
 										$("#alert").show();
+										stopTimer();
 									}
 							}
 						});
-					});
+					}
+			);
 		}
-		setInterval('updateDeployStatus()', 1000);
+		var	 interval = setInterval('updateDeployStatus()', 1000);	
+		function stopTimer(){
+			clearInterval(interval);
+		}
 	</script>
 </a:body>
