@@ -41,6 +41,7 @@ public class Handler implements PageHandler<Context> {
 			String log = m_service.getLog(plan, payload.getOffset());
 			int progress = m_service.getProgress(plan);
 
+			model.setOffset(payload.getOffset() + 1);
 			model.setLog(log);
 			model.setProgress(progress);
 		default:

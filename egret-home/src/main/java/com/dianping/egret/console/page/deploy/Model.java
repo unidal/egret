@@ -14,6 +14,8 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 
 	private int m_progress;
 
+	private int m_offset;
+
 	public Model(Context ctx) {
 		super(ctx);
 	}
@@ -31,13 +33,17 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 		return m_log;
 	}
 
+	public int getOffset() {
+		return m_offset;
+	}
+
 	public String getPlan() {
 		return m_plan;
 	}
 
 	public int getProgress() {
-   	return m_progress;
-   }
+		return m_progress;
+	}
 
 	public void setHosts(List<String> hosts) {
 		m_hosts = hosts;
@@ -45,6 +51,10 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 
 	public void setLog(String log) {
 		m_log = log;
+	}
+
+	public void setOffset(int offset) {
+		this.m_offset = offset;
 	}
 
 	public void setPlan(String plan) {
