@@ -2,8 +2,6 @@ package com.dianping.egret.agent.page.deploy.shell;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
