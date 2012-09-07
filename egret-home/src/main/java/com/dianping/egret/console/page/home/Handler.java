@@ -65,6 +65,8 @@ public class Handler implements PageHandler<Context> {
 			model.setProject(project);
 			model.setDeployPlans(deployPlans);
 			break;
+		default:
+			break;
 		}
 
 		m_jspViewer.view(ctx, model);

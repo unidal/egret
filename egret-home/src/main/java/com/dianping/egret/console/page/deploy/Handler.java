@@ -40,9 +40,11 @@ public class Handler implements PageHandler<Context> {
 			String plan = payload.getPlan();
 			String log = m_service.getLog(plan, payload.getOffset());
 			int progress = m_service.getProgress(plan);
-			
+
 			model.setLog(log);
 			model.setProgress(progress);
+		default:
+			break;
 		}
 
 		m_jspViewer.view(ctx, model);
