@@ -11,13 +11,19 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 	@FieldMeta("op")
 	private Action m_action;
 
-	public void setAction(Action action) {
-		m_action = action;
-	}
+	@FieldMeta("name")
+	private String m_projectName;
+
+	@FieldMeta("keyword")
+	private String m_keyword;
 
 	@Override
 	public Action getAction() {
 		return m_action;
+	}
+
+	public String getKeyword() {
+		return this.m_keyword;
 	}
 
 	@Override
@@ -25,12 +31,31 @@ public class Payload implements ActionPayload<ConsolePage, Action> {
 		return m_page;
 	}
 
+	public String getProjectName() {
+		return m_projectName;
+	}
+
+	public void setAction(String action) {
+		m_action = Action.getByName(action, Action.HOME);
+	}
+
+	public void setKeyword(String keyword) {
+		this.m_keyword = keyword;
+	}
+
 	@Override
 	public void setPage(String page) {
 		m_page = ConsolePage.getByName(page, ConsolePage.HOME);
 	}
 
+	public void setProjectName(String projectName) {
+		this.m_projectName = projectName;
+	}
+
 	@Override
 	public void validate(ActionContext<?> ctx) {
+		if (m_action == null) {
+			m_action = Action.HOME;
+		}
 	}
 }

@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wizard>
-  <webapp package="com.dianping.egret" webres="true">
-    <module name="agent" path="agent">
-      <page name="home" title="Home" default="true" path="home">
-        <description>Home</description>
-      </page>
-    </module>
-    <module name="console" path="console">
-      <page name="home" title="Home" default="true" path="home">
-        <description>Home</description>
-      </page>
-      <page name="projects" title="Projects" path="projects">
-        <description>Projects</description>
-      </page>
-      <page name="project" title="Project" path="project">
-        <description>Project</description>
-      </page>
-      <page name="deploy" title="Deploy" path="deploy">
-        <description>Deploy</description>
-      </page>
-      <page name="monitor" title="Monitor" path="monitor">
-        <description>Monitor</description>
-      </page>
-      <page name="about" title="About" path="about">
-        <description>About</description>
-      </page>
-    </module>
-  </webapp>
+   <webapp package="com.dianping.egret" webres="true">
+      <module name="agent" path="agent">
+         <page name="home" title="Home" default="true" path="home">
+            <description>Home</description>
+         </page>
+         <page name="deploy" title="Deploy" path="deploy">
+            <description>Deploy</description>
+         </page>
+      </module>
+      <module name="console" path="console">
+         <page name="home" title="Home" default="true" path="home">
+            <description>Home</description>
+         </page>
+      </module>
+   </webapp>
 </wizard>
 

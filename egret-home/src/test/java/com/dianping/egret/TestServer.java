@@ -38,7 +38,7 @@ public class TestServer extends JettyServer {
 
    @Override
    protected void postConfigure(WebAppContext context) {
-      context.addFilter(GzipFilter.class, "/agent/*", Handler.ALL);
+//      context.addFilter(GzipFilter.class, "/agent/*", Handler.ALL);
       context.addFilter(GzipFilter.class, "/console/*", Handler.ALL);
    }
 
