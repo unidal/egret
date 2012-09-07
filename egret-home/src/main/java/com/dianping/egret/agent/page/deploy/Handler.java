@@ -29,8 +29,11 @@ public class Handler implements PageHandler<Context> {
 		Payload payload = ctx.getPayload();
 
 		OutputStream resOut = ctx.getHttpServletResponse().getOutputStream();
+		String query = ctx.getHttpServletRequest().getQueryString();
+		System.out.println(query);
 		switch (payload.getAction()) {
 		case PREPARE:
+			System.out.println();
 			m_shell.prepare(payload.getVersion(), resOut);
 			break;
 		case ACTIVATE:

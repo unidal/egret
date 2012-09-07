@@ -46,7 +46,7 @@ function activate {
 	echo "Replace files..."
 	for jar in `ls $LIB_DIR/*.jar`
 	do
-		echo "&nbsp;&nbsp;&nbsp;&nbsp;Updating `basename $jar`"
+		echo "Updating `basename $jar`"
 		cp $jar $WEBAPP_DIR/WEB-INF/lib/
 	done
 	echo "Done"
@@ -64,7 +64,7 @@ function commit {
 	echo "Commit updated files..."
 	cd $WEBAPP_DIR
 	git add *
-	git commit -m "`date`" | sed -e 's/$/\<br\/\>/'
+	git commit -m "`date`"
 	echo "Done"
 	echo "Clean temp directories..."
 	rm -rf $LIB_DIR
