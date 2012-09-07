@@ -1,36 +1,31 @@
-package com.dianping.egret.console.page.home;
+package com.dianping.egret.agent.page.deploy;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import com.dianping.egret.console.ConsolePage;
-import com.site.lookup.annotation.Inject;
 import com.site.web.mvc.PageHandler;
 import com.site.web.mvc.annotation.InboundActionMeta;
 import com.site.web.mvc.annotation.OutboundActionMeta;
 import com.site.web.mvc.annotation.PayloadMeta;
 
 public class Handler implements PageHandler<Context> {
-	@Inject
-	private JspViewer m_jspViewer;
-
 	@Override
 	@PayloadMeta(Payload.class)
-	@InboundActionMeta(name = "home")
+	@InboundActionMeta(name = "deploy")
 	public void handleInbound(Context ctx) throws ServletException, IOException {
 		// display only, no action here
 	}
 
 	@Override
-	@OutboundActionMeta(name = "home")
+	@OutboundActionMeta(name = "deploy")
 	public void handleOutbound(Context ctx) throws ServletException, IOException {
-		Model model = new Model(ctx);
+		Payload payload = ctx.getPayload();
 
-		model.setAction(Action.VIEW);
-		model.setPage(ConsolePage.HOME);
-		m_jspViewer.view(ctx, model);
-		
-		System.out.println("");
+		switch (payload.getAction()) {
+		case PREPARE:
+			ctx.getHttpServletResponse().getOutputStream().write(payload.getVersion().getBytes());
+			break;
+		}
 	}
 }
