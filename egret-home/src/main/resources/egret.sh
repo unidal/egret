@@ -28,7 +28,12 @@ function activate {
 		mkdir -p $WEBAPP_DIR/WEB-INF/lib/
 	fi
 	bash $TOMCAT_DIR/bin/shutdown.sh
-	cp $LIB_DIR/*.jar $WEBAPP_DIR/WEB-INF/lib/
+	#cp $LIB_DIR/*.jar $WEBAPP_DIR/WEB-INF/lib/
+	for jar in `ls $LIB_DIR/*.jar`
+	do
+		echo "updating `basename $jar`"
+		cp $jar $WEBAPP_DIR/WEB-INF/lib/
+	done
 	cd $WEBAPP_DIR
 	git add *
 	bash $TOMCAT_DIR/bin/startup.sh
