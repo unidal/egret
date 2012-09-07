@@ -57,5 +57,57 @@
 			<role>com.dianping.egret.console.page.projects.JspViewer</role>
 			<implementation>com.dianping.egret.console.page.projects.JspViewer</implementation>
 		</component>
+		<component>
+			<role>com.dianping.egret.console.page.project.Handler</role>
+			<implementation>com.dianping.egret.console.page.project.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.egret.console.page.project.JspViewer</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.project.JspViewer</role>
+			<implementation>com.dianping.egret.console.page.project.JspViewer</implementation>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.deploy.Handler</role>
+			<implementation>com.dianping.egret.console.page.deploy.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.egret.console.page.deploy.JspViewer</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.deploy.JspViewer</role>
+			<implementation>com.dianping.egret.console.page.deploy.JspViewer</implementation>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.monitor.Handler</role>
+			<implementation>com.dianping.egret.console.page.monitor.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.egret.console.page.monitor.JspViewer</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.monitor.JspViewer</role>
+			<implementation>com.dianping.egret.console.page.monitor.JspViewer</implementation>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.about.Handler</role>
+			<implementation>com.dianping.egret.console.page.about.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.egret.console.page.about.JspViewer</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.egret.console.page.about.JspViewer</role>
+			<implementation>com.dianping.egret.console.page.about.JspViewer</implementation>
+		</component>
 	</components>
 </plexus>
