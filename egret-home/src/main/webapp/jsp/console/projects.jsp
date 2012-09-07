@@ -72,9 +72,11 @@ body {
 				<div class="row-fluid">
 					<!-- project search form -->
 					<form class="form-search">
-						<input type="text" class="input-medium search-query"
-							placeholder="jar-version">
-						<button type="submit" class="btn">Search</button>
+						<div class="input-append">
+							<input type="text" class="search-query input-large"
+								placeholder="jar-version">
+							<button type="submit" class="btn">Search</button>
+						</div>
 					</form>
 				</div>
 				<!-- project list -->
