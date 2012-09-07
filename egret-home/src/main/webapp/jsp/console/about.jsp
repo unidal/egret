@@ -59,8 +59,8 @@ body {
 		<div class="row-fluid">
 			<div class="hero-unit">
 				<h1>Egret</h1>
-				<p>统一替换架构某个产品的JAR包，在此过程中确保⼀ 些列的安全，包括正确性验证，失败回滚等</p>
-				<p>Build By
+				<p>统一替换架构某个产品的JAR包，在此过程中确保一些列的安全，包括正确性验证，失败回滚等</p>
+				<p>Build by
 					<span class="label label-success">老吴</span><span
 						class="label label-warning">老马</span><span
 						class="label label-important">尤勇</span><span class="label label-info">一鸣</span>

@@ -57,63 +57,39 @@ body {
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span3">
-				<div class="well sidebar-nav">
-					<ul class="nav nav-list">
-						<li class="nav-header"></li>
-						<li><a href="projects">List Projects</a></li>
-						<li><a href="deploy">Deploy Jars</a></li>
-					</ul>
-				</div>
-				<!--/.well -->
+			<div class="row-fluid">
+				<!-- project search form -->
+				<form class="form-search">
+					<div class="input-append">
+						<input type="text" class="search-query input-large"
+							placeholder="jar-version">
+						<button type="submit" class="btn">Search</button>
+					</div>
+				</form>
 			</div>
-			<!--/span-->
-			<div class="span9">
-				<div class="hero-unit">
-					<h1>Egret</h1>
-					<p>统一替换架构某个产品的JAR包，在此过程中确保⼀ 些列的安全，包括正确性验证，失败回滚等</p>
-					<p>
-						<a class="btn btn-primary btn-large">Learn more &raquo;</a>
-					</p>
-				</div>
-				<div class="row-fluid">
-					<div class="span4">
-						<h2>快速迭代、敢于尝试</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-					<div class="span4">
-						<h2>拥抱变化、及时响应</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-					<div class="span4">
-						<h2>敏捷开发、敏捷发布</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-				</div>
-				<!--/row-->
+			<!-- project list -->
+			<div class="row-fluid">
+				<table class="table table-striped table-hover">
+					<caption></caption>
+					<thead>
+						<tr>
+							<th>Project</th>
+							<th>Version</th>
+							<th>Description</th>
+							<th>Operation</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>SampleProject</td>
+							<td>1.0.0</td>
+							<td>A sample web project</td>
+							<td><a href="project">View More</a></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<!--/span-->
+			<!--/row-->
 		</div>
 		<!--/row-->
 

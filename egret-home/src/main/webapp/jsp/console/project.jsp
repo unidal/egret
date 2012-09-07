@@ -57,52 +57,65 @@ body {
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span3">
-				<div class="well sidebar-nav">
-					<ul class="nav nav-list">
-						<li class="nav-header"></li>
-						<li class="active"><a href="projects">List Projects</a></li>
-						<li><a href="deploy">Deploy Jars</a></li>
-					</ul>
-				</div>
-				<!--/.well -->
-			</div>
-			<!--/span-->
-			<div class="span9">
-				<div class="row-fluid">
-					<table class="table table-striped">
-						<caption>Project Name</caption>
-						<thead>
-							<tr>
-								<th>Property</th>
-								<th>Value</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>IP</td>
-								<td>127.0.0.1</td>
-							</tr>
-							<tr>
-								<td>Path</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Description</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Dependency</td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!--/span-->
+			<table class="table table-striped table-bordered">
+				<caption>Project Name</caption>
+				<thead>
+					<tr>
+						<th>Property</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Version</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Description</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Dependency</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<!--/row-->
 
+		<div class="row-fluid">
+			<table class="table table-striped table-bordered table-condensed">
+				<caption>Server List</caption>
+				<thead>
+					<tr>
+						<th></th>
+						<th>IP</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>127.0.0.1</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>127.0.0.2</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row-fluid">
+			<h4>Select Plan</h4>
+			<select>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+			<button type="submit" class="btn btn-primary">Submit Plan</button>
+			<button type="button" class="btn">Cancel</button>
+		</div>
 		<hr>
 
 		<footer>

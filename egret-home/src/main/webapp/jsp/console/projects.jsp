@@ -68,46 +68,7 @@ body {
 				<!--/.well -->
 			</div>
 			<!--/span-->
-			<div class="span9">
-				<div class="row-fluid">
-					<!-- project search form -->
-					<form class="form-search">
-						<div class="input-append">
-							<input type="text" class="search-query input-large"
-								placeholder="jar-version">
-							<button type="submit" class="btn">Search</button>
-						</div>
-					</form>
-				</div>
-				<!-- project list -->
-				<div class="row-fluid">
-					<table class="table table-striped table-hover">
-						<caption></caption>
-						<thead>
-							<tr>
-								<th>Project</th>
-								<th>IP</th>
-								<th>Path</th>
-								<th>Description</th>
-								<th>Operation</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>SampleProject</td>
-								<td>127.0.0.1</td>
-								<td>/var/lib/tomcat/webapps/SampleProject/</td>
-								<td>A sample web project</td>
-								<td><a href="project">View More</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<!--/row-->
-			</div>
-			<!--/span-->
 		</div>
-		<!--/row-->
 
 		<hr>
 
