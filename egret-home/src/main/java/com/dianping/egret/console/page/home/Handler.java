@@ -21,7 +21,7 @@ public class Handler implements PageHandler<Context> {
 
 	@Inject
 	private ProjectService m_projectService;
-	
+
 	@Inject
 	private DeployService m_deployService;
 
@@ -30,7 +30,7 @@ public class Handler implements PageHandler<Context> {
 	@InboundActionMeta(name = "home")
 	public void handleInbound(Context ctx) throws ServletException, IOException {
 		Action action = ctx.getPayload().getAction();
-		
+
 		switch (action) {
 		case DEPLOY:
 			break;
@@ -45,6 +45,9 @@ public class Handler implements PageHandler<Context> {
 		Model model = new Model(ctx);
 		Payload payload = ctx.getPayload();
 		Action action = payload.getAction();
+
+		model.setAction(payload.getAction());
+		model.setPage(ConsolePage.HOME);
 
 		switch (action) {
 		case HOME:
@@ -64,9 +67,6 @@ public class Handler implements PageHandler<Context> {
 		case ABOUT:
 			break;
 		}
-
-		model.setAction(payload.getAction());
-		model.setPage(ConsolePage.HOME);
 
 		m_jspViewer.view(ctx, model);
 	}

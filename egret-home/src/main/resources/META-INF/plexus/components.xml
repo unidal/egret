@@ -9,6 +9,10 @@
 			<implementation>com.dianping.egret.console.service.DeployService</implementation>
 		</component>
 		<component>
+			<role>com.dianping.egret.agent.page.deploy.shell.Shell</role>
+			<implementation>com.dianping.egret.agent.page.deploy.shell.DefaultShell</implementation>
+		</component>
+		<component>
 			<role>com.site.web.mvc.model.ModuleRegistry</role>
 			<implementation>com.site.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>
@@ -38,6 +42,11 @@
 		<component>
 			<role>com.dianping.egret.agent.page.deploy.Handler</role>
 			<implementation>com.dianping.egret.agent.page.deploy.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.egret.agent.page.deploy.shell.Shell</role>
+				</requirement>
+			</requirements>
 		</component>
 		<component>
 			<role>com.dianping.egret.console.ConsoleModule</role>
