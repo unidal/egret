@@ -54,7 +54,7 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 	}
 
 	public void setOffset(int offset) {
-		this.m_offset = offset;
+		m_offset = offset;
 	}
 
 	public void setPlan(String plan) {

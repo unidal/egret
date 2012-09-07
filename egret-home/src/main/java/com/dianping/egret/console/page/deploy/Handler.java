@@ -37,13 +37,15 @@ public class Handler implements PageHandler<Context> {
 
 		switch (payload.getAction()) {
 		case LOG:
+			StringBuilder sb = new StringBuilder(1024);
 			String plan = payload.getPlan();
-			String log = m_service.getLog(plan, payload.getOffset());
+			int offset = payload.getOffset();
+			int logs = m_service.getLog(plan, offset, sb);
 			int progress = m_service.getProgress(plan);
 
-			model.setOffset(payload.getOffset() + 1);
-			model.setLog(log);
+			model.setLog(sb.toString());
 			model.setProgress(progress);
+			model.setOffset(offset + logs);
 		default:
 			break;
 		}
