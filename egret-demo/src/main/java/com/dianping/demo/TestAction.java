@@ -16,20 +16,17 @@ public class TestAction extends ActionSupport {
 
 	private String m_version;
 
-	private List<String> m_libs = new ArrayList<String>();
-
 	private CommonAlarmService m_commonAlarmSerivce;
 
 	@Override
 	public String execute() throws Exception {
-		
+
 		MessageTree messagetree = Cat.getManager().getThreadLocalMessageTree();
 		System.out.println(messagetree);
 		Transaction t = Cat.getProducer().newTransaction("Demo", "Test");
 
 		try {
 			List<String> emails = new ArrayList<String>();
-
 			emails.add("yong.you@dianping.com");
 
 			boolean result = m_commonAlarmSerivce.sendEmail("Test", "Test", emails);
@@ -38,10 +35,10 @@ public class TestAction extends ActionSupport {
 		} catch (Exception e) {
 			t.setStatus(e);
 			Cat.logError(e);
+			throw e;
 		} finally {
 			t.complete();
 		}
-		System.out.println(messagetree);
 		return SUCCESS;
 	}
 
@@ -51,10 +48,6 @@ public class TestAction extends ActionSupport {
 
 	public String getVersion() {
 		return m_version;
-	}
-
-	public List<String> getLibs() {
-		return m_libs;
 	}
 
 	public void setCommonAlarmSerivce(CommonAlarmService commonAlarmSerivce) {

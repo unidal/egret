@@ -6,7 +6,6 @@
 
 <html></html>
 <body>
-test
-
+     HOME PAGE
 </body>
 </html>
