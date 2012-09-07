@@ -2,7 +2,9 @@ package com.dianping.egret.agent.page.deploy;
 
 public enum Action implements com.site.web.mvc.Action {
 	PREPARE("prepare"),
-	
+	ACTIVATE("activate"),
+	COMMIT("commit"),
+	ROLLBACK("rollback"),
 	VIEW("view");
 	
 	
