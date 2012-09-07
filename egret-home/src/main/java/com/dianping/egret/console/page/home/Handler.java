@@ -30,5 +30,7 @@ public class Handler implements PageHandler<Context> {
 		model.setAction(Action.VIEW);
 		model.setPage(ConsolePage.HOME);
 		m_jspViewer.view(ctx, model);
+		
+		System.out.println("");
 	}
 }
