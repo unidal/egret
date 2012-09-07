@@ -49,6 +49,9 @@ public class Handler implements PageHandler<Context> {
 		Payload payload = ctx.getPayload();
 		Action action = payload.getAction();
 
+		model.setAction(payload.getAction());
+		model.setPage(ConsolePage.HOME);
+
 		switch (action) {
 		case HOME:
 			List<Project> projects = m_projectService.search(payload.getKeyword());
@@ -67,9 +70,6 @@ public class Handler implements PageHandler<Context> {
 		case ABOUT:
 			break;
 		}
-
-		model.setAction(payload.getAction());
-		model.setPage(ConsolePage.HOME);
 
 		m_jspViewer.view(ctx, model);
 	}

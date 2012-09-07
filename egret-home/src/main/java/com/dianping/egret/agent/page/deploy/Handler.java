@@ -5,13 +5,17 @@ import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 
-import com.dianping.egret.agent.page.deploy.shell.DefaultShell;
+import com.dianping.egret.agent.page.deploy.shell.Shell;
+import com.site.lookup.annotation.Inject;
 import com.site.web.mvc.PageHandler;
 import com.site.web.mvc.annotation.InboundActionMeta;
 import com.site.web.mvc.annotation.OutboundActionMeta;
 import com.site.web.mvc.annotation.PayloadMeta;
 
 public class Handler implements PageHandler<Context> {
+	@Inject
+	private Shell m_shell;
+	
 	@Override
 	@PayloadMeta(Payload.class)
 	@InboundActionMeta(name = "deploy")
@@ -27,16 +31,16 @@ public class Handler implements PageHandler<Context> {
 		OutputStream resOut = ctx.getHttpServletResponse().getOutputStream();
 		switch (payload.getAction()) {
 		case PREPARE:
-			DefaultShell.getInstance().prepare(payload.getVersion(), resOut);
+			m_shell.prepare(payload.getVersion(), resOut);
 			break;
 		case ACTIVATE:
-			DefaultShell.getInstance().activate(resOut);
+			m_shell.activate(resOut);
 			break;
 		case COMMIT:
-			DefaultShell.getInstance().commit(resOut);
+			m_shell.commit(resOut);
 			break;
 		case ROLLBACK:
-			DefaultShell.getInstance().rollback(payload.getVersion(), resOut);
+			m_shell.rollback(payload.getVersion(), resOut);
 			break;
 		}
 	}

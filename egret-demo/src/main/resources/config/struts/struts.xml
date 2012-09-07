@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <!-- 发布时需要修改为false -->
+    <constant name="struts.devMode" value="true" />    
+    <constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory"/> 
+    <!-- 国际化 -->
+    <constant name="struts.custom.i18n.resources" value="resource.messageResource"></constant>
+    <constant name="struts.i18n.encoding" value="UTF-8" /> 
+    <constant name="struts.locale" value="zh_CN" /> 
+    <!-- 设置允许OGNL访问静态成员 -->
+    <constant name="Struts.ognl.allowStaticMethodAccess" value="true"></constant>    
+    <!-- 默认使用Jakarta 的Common-FileUpload的文件上传解析器    -->    
+    <constant name="Struts.multipart.parse" value="jakarta"></constant>  	
+    <constant name="struts.multipart.saveDir" value="/upload_temp"></constant>
+    <constant name="struts.multipart.maxSize" value="4097152"></constant> 
+    
+	<include file="config/struts/struts-system.xml"></include>
+	
+	<package name="dianping" extends="struts-default">
+	<global-results>
+			<result name="success">jsp/SystemSuccess.jsp</result>
+			<result name="sql">jsp/SystemError.jsp</result>
+			<result name="root">jsp/SystemError.jsp</result>
+			<result name="input">jsp/SystemError.jsp</result>
+			<result name="error">jsp/SystemError.jsp</result>
+		</global-results>
+	</package>
+</struts>
