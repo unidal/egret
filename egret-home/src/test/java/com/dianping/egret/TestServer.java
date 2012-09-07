@@ -16,7 +16,7 @@ public class TestServer extends JettyServer {
       TestServer server = new TestServer();
 
       server.startServer();
-      server.showReport();
+      server.startWebapp();
       server.stopServer();
    }
 
@@ -38,15 +38,12 @@ public class TestServer extends JettyServer {
 
    @Override
    protected void postConfigure(WebAppContext context) {
-<<<<<<< HEAD
       context.addFilter(GzipFilter.class, "/agent/*", Handler.ALL);
-=======
->>>>>>> faa31487bc671f875f607b067dc465fd7cd93bea
       context.addFilter(GzipFilter.class, "/console/*", Handler.ALL);
    }
 
    @Test
-   public void showReport() throws Exception {
+   public void startWebapp() throws Exception {
       // open the page in the default browser
       display("/egret/console");
       waitForAnyKey();
