@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizard>
+   <webapp package="com.dianping.egret" name="egret" webres="true" cat="true">
+      <module name="agent" path="agent" default="true">
+         <page name="home" title="Home" default="true" path="home">
+            <description>Home</description>
+         </page>
+      </module>
+      <module name="console" path="console" default="false">
+         <page name="home" title="Home" default="true" path="home">
+            <description>Home</description>
+         </page>
+      </module>
+   </webapp>
+</wizard>
+
