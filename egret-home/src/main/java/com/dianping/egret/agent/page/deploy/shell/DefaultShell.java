@@ -2,6 +2,7 @@ package com.dianping.egret.agent.page.deploy.shell;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -10,13 +11,13 @@ import org.apache.commons.exec.PumpStreamHandler;
 public class DefaultShell implements Shell {
 	@Override
 	public void activate(OutputStream outputCollector) throws IOException {
-		CommandLine cmd = CommandLine.parse(getScriptPath() + "egret.sh activate");
+		CommandLine cmd = CommandLine.parse(getScriptPath() + " activate");
 		getExecutor(outputCollector).execute(cmd);
 	}
 
 	@Override
 	public void commit(OutputStream outputCollector) throws IOException {
-		CommandLine cmd = CommandLine.parse(getScriptPath() + "egret.sh commit");
+		CommandLine cmd = CommandLine.parse(getScriptPath() + " commit");
 		getExecutor(outputCollector).execute(cmd);
 	}
 
@@ -30,20 +31,26 @@ public class DefaultShell implements Shell {
 	}
 
 	private String getScriptPath() {
-		String scriptPath = System.getProperty("scriptPath", "/Users/marsqing/bin");
+		URL scriptUrl = this.getClass().getClassLoader().getResource("egret.sh");
+		if(scriptUrl == null) {
+			throw new RuntimeException("egret.sh not found");
+		}
+		return scriptUrl.getPath();
+	}
 
-		return scriptPath;
+	public static void main(String[] args) {
+		(new DefaultShell()).getScriptPath();
 	}
 
 	@Override
 	public void prepare(String libVersion, final OutputStream outputCollector) throws IOException {
-		CommandLine cmd = CommandLine.parse(getScriptPath() + "egret.sh prepare " + libVersion);
+		CommandLine cmd = CommandLine.parse(getScriptPath() + " prepare " + libVersion);
 		getExecutor(outputCollector).execute(cmd);
 	}
 
 	@Override
 	public void rollback(String appVersion, OutputStream outputCollector) throws IOException {
-		CommandLine cmd = CommandLine.parse(getScriptPath() + "egret.sh rollback " + appVersion);
+		CommandLine cmd = CommandLine.parse(getScriptPath() + " rollback " + appVersion);
 		getExecutor(outputCollector).execute(cmd);
 	}
 }

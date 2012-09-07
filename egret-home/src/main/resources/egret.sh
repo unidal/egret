@@ -31,7 +31,7 @@ function activate {
 	#cp $LIB_DIR/*.jar $WEBAPP_DIR/WEB-INF/lib/
 	for jar in `ls $LIB_DIR/*.jar`
 	do
-		echo "updating `basename $jar`"
+		echo "updating `basename $jar`<br/>"
 		cp $jar $WEBAPP_DIR/WEB-INF/lib/
 	done
 	cd $WEBAPP_DIR
