@@ -1,8 +1,15 @@
 echo "running egret with $1 $2<br/>"
 
-LIB_DIR=/Users/marsqing/Projects/tmp/egret-lib/
-WEBAPP_DIR=/Users/marsqing/Projects/tmp/egret-webapp/
-TOMCAT_DIR="/Users/marsqing/Projects/tmp/apache-tomcat-5.5.34/"
+echo $TOMCAT_HOME
+if [ x$TOMCAT_HOME = "x" ]
+then
+	echo "set TOMCAT_HOME first"
+	exit 1
+fi
+
+LIB_DIR=`pwd`/egret-lib/
+TOMCAT_DIR=$TOMCAT_HOME
+WEBAPP_DIR="$TOMCAT_DIR/webapps/egret-demo-1.0.0-SNAPSHOT/"
 
 function prepare {
 	echo "do prepare<br/>"
@@ -27,7 +34,8 @@ function activate {
 		echo "no webapp dir"
 		mkdir -p $WEBAPP_DIR/WEB-INF/lib/
 	fi
-	bash $TOMCAT_DIR/bin/shutdown.sh
+	#bash $TOMCAT_DIR/bin/shutdown.sh
+	killall -9 java
 	#cp $LIB_DIR/*.jar $WEBAPP_DIR/WEB-INF/lib/
 	for jar in `ls $LIB_DIR/*.jar`
 	do
