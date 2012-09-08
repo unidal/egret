@@ -43,8 +43,8 @@
 
 			<div id="status" data-spy="scroll" data-offset="0"
 				class="scrollspy-example"
-				style="height: 300px; line-height: 20px; overflow: auto;">
-				<span id="offset--1" class="label label-inverse">
+				style="height: 300px; line-height: 20px; overflow: auto; background-color: #000;">
+				<span id="offset--1" class="terminal-like">
 					${model.quotedLog} </span>
 			</div>
 		</div>
