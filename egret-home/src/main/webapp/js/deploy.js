@@ -22,7 +22,7 @@ function updateDeployStatus() {
 										stopTimer();
 									},
 									success : function(data) {
-										console.log(data.status);
+										
 										var finished = data.status
 										$
 												.each(
@@ -38,6 +38,7 @@ function updateDeployStatus() {
 																			function(
 																					statusIndex,
 																					status) {
+																				console.log(status);
 																				$(
 																						"#b_"
 																								+ hostIndex
@@ -47,14 +48,6 @@ function updateDeployStatus() {
 																								"class",
 																								"bar bar-"
 																										+ status);
-																				$(
-																						"#b_"
-																								+ hostIndex
-																								+ "_"
-																								+ statusIndex)
-																						.attr(
-																								"rel",
-																								"tooltip");
 																				$(
 																						"#b_"
 																								+ hostIndex
@@ -71,6 +64,11 @@ function updateDeployStatus() {
 																									+ hostIndex)
 																							.removeClass(
 																									"active");
+																					$(
+																							"#p_"
+																									+ hostIndex)
+																							.removeClass(
+																									"progress-striped");
 																				}
 																			});
 														});
