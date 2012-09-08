@@ -3,6 +3,7 @@
 		<owner>yong.you</owner>
 		<hosts>
 			<host>192.168.62.180</host>
+			<host>192.168.62.180</host>
 		</hosts>
 		<dependencyJars>
 			<dependencyJar>Pigeon-1.1.jar</dependencyJar>

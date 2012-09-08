@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +18,12 @@ import com.site.helper.Threads.Task;
 public class DeployService {
 	private Map<String, DeployInfo> m_infos = new HashMap<String, DeployInfo>();
 
-	public synchronized boolean deploy(List<String> hosts, String plan) {
-		if (!m_infos.containsKey(plan)) {
-			DeployInfo info = new DeployInfo(plan, hosts);
+	public synchronized boolean deploy(List<String> hosts, String id) {
+		if (!m_infos.containsKey(id)) {
+			DeployInfo info = new DeployInfo(id, hosts);
 			DeployTask task = new DeployTask(info);
 
-			m_infos.put(plan, info);
+			m_infos.put(id, info);
 			Threads.forGroup("Egret").start(task);
 			return true;
 		}
@@ -30,87 +31,83 @@ public class DeployService {
 		return false;
 	}
 
-	public List<String> getHostsByPlan(String plan) {
-		DeployInfo info = m_infos.get(plan);
+	public HostPlan getCurrentHostPlan(String id) {
+		DeployInfo info = m_infos.get(id);
 
 		if (info == null) {
-			return new ArrayList<String>();
+			return null;
+		} else {
+			return info.getCurrentPlan();
 		}
-		return info.getHosts();
 	}
 
-	public int getLog(String plan, int offset, StringBuilder sb) {
-		DeployInfo info = m_infos.get(plan);
+	public List<HostPlan> getHostPlans(String id) {
+		DeployInfo info = m_infos.get(id);
+
+		if (info == null) {
+			return Collections.emptyList();
+		} else {
+			return info.getPlans();
+		}
+	}
+
+	public int getMessages(String id, int offset, StringBuilder sb) {
+		DeployInfo info = m_infos.get(id);
 
 		if (info == null) {
 			return 0;
 		}
 
-		try {
-			return info.getLog(offset, sb);
-		} finally {
-			if (info.isComplete()) {
-				//m_infos.remove(plan); //TODO
-			}
-		}
-	}
-
-	public int getProgress(String plan) {
-		DeployInfo info = m_infos.get(plan);
-
-		if (info == null) {
-			return 0;
-		}
-
-		return info.getProgress();
+		return info.getMessage(offset, sb);
 	}
 
 	static class DeployInfo {
-		private String m_plan;
+		private String m_id;
 
-		private List<String> m_hosts;
+		private List<HostPlan> m_plans = new ArrayList<HostPlan>();
 
-		private int m_progress;
+		private List<String> m_messages = new ArrayList<String>();
 
-		private List<String> m_logs = new ArrayList<String>();
+		private HostPlan m_currentPlan;
 
-		public DeployInfo(String plan, List<String> hosts) {
-			m_plan = plan;
-			m_hosts = hosts;
+		public DeployInfo(String id, List<String> hosts) {
+			m_id = id;
+
+			int index = 0;
+
+			for (String host : hosts) {
+				m_plans.add(new HostPlan(index++, host).setStatus("todo").setStepWeights(10, 70, 20));
+			}
 		}
 
-		public void addLog(String log) {
-			m_logs.add(log);
+		public void addMessage(String message) {
+			m_messages.add(message);
 		}
 
-		public List<String> getHosts() {
-			return m_hosts;
+		public HostPlan getCurrentPlan() {
+			return m_currentPlan;
 		}
 
-		public int getLog(int offset, StringBuilder sb) {
-			int len = m_logs.size();
+		public String getId() {
+			return m_id;
+		}
+
+		public int getMessage(int offset, StringBuilder sb) {
+			int len = m_messages.size();
 
 			for (int i = offset; i < len; i++) {
-				sb.append(m_logs.get(i)).append("<br>\\r\\n");
+				sb.append(m_messages.get(i)).append("<br>\\r\\n");
 			}
 
 			return Math.max(0, len - offset);
 		}
 
-		public String getPlan() {
-			return m_plan;
+		public List<HostPlan> getPlans() {
+			return m_plans;
 		}
 
-		public int getProgress() {
-			return m_progress;
-		}
-
-		public boolean isComplete() {
-			return m_progress == 100;
-		}
-
-		public void setProgress(int progress) {
-			m_progress = progress;
+		public void setCurrentPlan(HostPlan currentPlan) {
+			m_currentPlan = currentPlan;
 		}
 	}
 
@@ -121,21 +118,23 @@ public class DeployService {
 			m_info = info;
 		}
 
-		private boolean activate(String plan, String host) {
-			return doAction(Action.ACTIVATE, plan, host);
+		private boolean activate(String id, HostPlan plan) {
+			return doAction(Action.ACTIVATE, id, plan);
 		}
 
-		private boolean commit(String plan, String host) {
-			return doAction(Action.COMMIT, plan, host);
+		private boolean commit(String id, HostPlan plan) {
+			return doAction(Action.COMMIT, id, plan);
 		}
 
-		private boolean doAction(Action action, String plan, String host) {
-			String url = String.format("http://%s:3473/egret/agent/deploy?op=%s&version=%s", host, action.getName(), plan);
+		private boolean doAction(Action action, String id, HostPlan plan) {
+			String host = plan.getHost();
+			String url = String.format("http://%s:3473/egret/agent/deploy?op=%s&version=%s", host, action.getName(), id);
 			BufferedReader reader = null;
 
 			try {
 				InputStream in = new URL(url).openStream();
 
+				plan.setStatus("doing");
 				reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
 
 				while (true) {
@@ -145,12 +144,14 @@ public class DeployService {
 						break;
 					}
 
-					m_info.addLog(line);
+					m_info.addMessage(line);
 				}
 
+				plan.setStatus("success");
 				return true;
-			} catch (Exception e) {
-				m_info.addLog(e.toString());
+			} catch (Throwable e) {
+				m_info.addMessage(e.toString());
+				plan.setStatus("failed");
 				return false;
 			} finally {
 				if (reader != null) {
@@ -160,6 +161,8 @@ public class DeployService {
 						// ignore it
 					}
 				}
+
+				plan.nextStep();
 			}
 		}
 
@@ -168,62 +171,52 @@ public class DeployService {
 			return getClass().getSimpleName();
 		}
 
-		private boolean prepare(String plan, String host) {
-			return doAction(Action.PREPARE, plan, host);
+		private boolean prepare(String id, HostPlan plan) {
+			return doAction(Action.PREPARE, id, plan);
 		}
 
-		private boolean rollback(String plan, String host) {
-			return doAction(Action.ROLLBACK, plan, host);
+		private boolean rollback(String id, HostPlan plan) {
+			return doAction(Action.ROLLBACK, id, plan);
 		}
 
 		@Override
 		public void run() {
-			int hosts = m_info.getHosts().size();
+			int hosts = m_info.getPlans().size();
 
 			for (int i = 0; i < hosts; i++) {
-				String host = m_info.getHosts().get(i);
-				String plan = m_info.getPlan();
+				HostPlan plan = m_info.getPlans().get(i);
+				String id = m_info.getId();
 
-				updateProgress(hosts, i, 0);
+				m_info.setCurrentPlan(plan);
 
-				if (prepare(plan, host)) {
-					updateProgress(hosts, i, 0.1);
-
-					if (activate(plan, host)) {
-						updateProgress(hosts, i, 0.8);
-
-						if (commit(plan, host)) {
-							m_info.addLog("Commit successfully.");
+				if (prepare(id, plan)) {
+					if (activate(id, plan)) {
+						if (commit(id, plan)) {
+							m_info.addMessage("Commit successfully.");
 						} else {
-							m_info.addLog("Commit failed.");
+							m_info.addMessage("Commit failed.");
 						}
 					} else {
-						if (rollback(plan, host)) {
-							m_info.addLog("Rollback successfully.");
+						if (rollback(id, plan)) {
+							m_info.addMessage("Rollback successfully.");
 						} else {
-							m_info.addLog("Rollback failed.");
+							m_info.addMessage("Rollback failed.");
 						}
 					}
 				} else {
-					if (rollback(plan, host)) {
-						m_info.addLog("Rollback successfully.");
+					plan.nextStep(); // skip one step
+
+					if (rollback(id, plan)) {
+						m_info.addMessage("Rollback successfully.");
 					} else {
-						m_info.addLog("Rollback failed.");
+						m_info.addMessage("Rollback failed.");
 					}
 				}
-
-				updateProgress(hosts, i, 1);
 			}
 		}
 
 		@Override
 		public void shutdown() {
-		}
-
-		private void updateProgress(int hosts, int index, double value) {
-			double progress = (index + value) / hosts;
-
-			m_info.setProgress((int) (progress * 100));
 		}
 	}
 }

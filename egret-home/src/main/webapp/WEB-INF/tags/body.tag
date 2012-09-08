@@ -16,7 +16,6 @@
 <res:jsSlot id="head-js"/>
 <res:useCss value='${res.css.local.bootstrap_css}' target="head-css"/>
 <res:useCss value='${res.css.local.body_css}' target="head-css"/>
-<res:useCss value='${res.css.local.body_css}' target="head-css"/>
 </head>
 
 <body>
@@ -28,8 +27,8 @@
 				</a> <a class="brand" href="#">Egret</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li><a href="?op=home">Home</a></li>
-						<li><a href="?op=about">About</a></li>
+						<li><a href="${model.webapp}/${page.moduleName}console">Home</a></li>
+						<li><a href="${model.webapp}/${page.moduleName}console?op=about">About</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
