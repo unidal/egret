@@ -1,11 +1,11 @@
 cd `dirname $0`
-echo "running egret with $1 $2"
+#echo "running egret with $1 $2"
 
 TOMCAT_HOME="/Users/marsqing/Projects/tmp/tomcat/"
 
 if [ x$TOMCAT_HOME = "x" ]
 then
-	echo "set TOMCAT_HOME first"
+	log "set TOMCAT_HOME first" "ERROR"
 	exit 1
 fi
 
@@ -13,12 +13,23 @@ LIB_DIR=`pwd`/egret-lib/
 TOMCAT_DIR=$TOMCAT_HOME
 WEBAPP_DIR="$TOMCAT_DIR/webapps/egret-demo-1.0.0-SNAPSHOT/"
 
+function log {
+	level="INFO"
+	if [ ! x$2 = "x" ]
+	then
+		level=$2
+	fi
+	date=`date "+%Y-%m-%d %H:%M:%S"`
+	sleep 0.5
+	echo "[$date] [$level] $1"
+}
+
 function prepare {
-	echo "Start prepare..."
+	log "Start prepare..."
 	rm -rf $LIB_DIR
-	echo "Fetch app update from repository..."
+	log "Fetch app update from repository..."
 	git clone ssh://git@192.168.8.22:58422/egretlib $LIB_DIR
-	echo "Done"
+	log "Done"
 	#check if version compatible
 	mkdir -p $WEBAPP_DIR
 	if [ ! -d "$WEBAPP_DIR/.git" ]
@@ -28,55 +39,55 @@ function prepare {
 		git add * > /dev/null
 		git commit -m "`date`" > /dev/null
 	fi
-	echo "All done!"
+	log "All done!"
 	exit 0
 }
 
 function activate {
-	echo "Start activate..."
+	log "Start activate..."
 	if [ ! -d $WEBAPP_DIR/WEB-INF/lib ]
 	then
 		mkdir -p $WEBAPP_DIR/WEB-INF/lib/
 	fi
-	echo "Stopping web server..."
+	log "Stopping web server..."
 	pid=`jps -l|grep Bootstrap|awk '{print $1}'`
 	kill -9 $pid
-	echo "Done"
+	log "Done"
 	#cp $LIB_DIR/*.jar $WEBAPP_DIR/WEB-INF/lib/
-	echo "Replace files..."
+	log "Replace files..."
 	for jar in `ls $LIB_DIR/*.jar`
 	do
-		echo "Updating `basename $jar`"
+		log "Updating `basename $jar`"
 		cp $jar $WEBAPP_DIR/WEB-INF/lib/
 	done
-	echo "Done"
+	log "Done"
 	cd $WEBAPP_DIR
 	git add *
-	echo "Starting web server..."
+	log "Starting web server..."
 	bash $TOMCAT_DIR/bin/startup.sh
-	echo "Done"
-	echo "All done!"
+	log "Done"
+	log "All done!"
 	exit 0
 }
 
 function commit {
-	echo "Start commit..."
-	echo "Commit updated files..."
+	log "Start commit..."
+	log "Commit updated files..."
 	cd $WEBAPP_DIR
 	git add *
 	git commit -m "`date`"
-	echo "Done"
-	echo "Clean temp directories..."
+	log "Done"
+	log "Clean temp directories..."
 	rm -rf $LIB_DIR
 	#return [webapp.commit]
-	echo "Done"
-	echo "All done!"
+	log "Done"
+	log "All done!"
 	exit 0
 }
 
 function rollback {
-	echo "Start rollback..."
-	echo "Rollback updated files..."
+	log "Start rollback..."
+	log "Rollback updated files..."
 	if [ x$2 = "x" ]
 	then
 		cd $WEBAPP_DIR
@@ -84,18 +95,18 @@ function rollback {
 	else
 		git reset --heard $2
 	fi
-	echo "Done"
-	echo "Clean temp directories..."
+	log "Done"
+	log "Clean temp directories..."
 	rm -rf $LIB_DIR/*
-	echo "Done"
-	echo "Stopping web server..."
+	log "Done"
+	log "Stopping web server..."
 	pid=`jps -l|grep Bootstrap|awk '{print $1}'`
 	kill -9 $pid
-	echo "Done"
-	echo "Starting web server..."
+	log "Done"
+	log "Starting web server..."
 	bash $TOMCAT_DIR/bin/startup.sh
-	echo "Done"
-	echo "All done!"
+	log "Done"
+	log "All done!"
 	exit 0
 }
 
