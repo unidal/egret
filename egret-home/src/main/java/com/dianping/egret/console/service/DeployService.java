@@ -213,20 +213,25 @@ public class DeployService {
 		private boolean test(String id, HostPlan plan) {
 			DeployStep step = Action.TEST.getDeployStep();
 			String host = plan.getHost();
-			String url = String.format("http://%s:8080/demo/add.action?a=12&b=13", host);
+			String url = String.format("http://%s:8080/egret-demo-1.0.0-SNAPSHOT/add.action?a=12&b=13", host);
 
 			plan.setCurrentStep(step);
 			plan.setStatus("doing");
 
+			m_info.addMessage("Test: invoking URL: " + url);
+
 			try {
 				String content = Files.forIO().readFrom(new URL(url).openStream(), "utf-8");
 
-				if ("25".equals(content.trim())) {
+				if ("12+13=25".equals(content.trim())) {
 					plan.setStatus("success");
 					return true;
 				}
 			} catch (Exception e) {
+				m_info.addMessage(e.toString());
 				// ignore it
+			} finally {
+				m_info.addMessage("Test: end");
 			}
 
 			plan.setStatus("failed");
