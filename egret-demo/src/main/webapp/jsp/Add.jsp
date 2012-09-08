@@ -1,12 +1,4 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/WEB-INF/tld/struts-tags.tld"%>
-
-<html>
-
-<html></html>
-<body>
- 	 <s:property value="version"/>
- 	 <br></br>
+<s:property value="a"/>+<s:property value="b"/>=<s:property value="result"/>
  	 
-</body>
-</html>
