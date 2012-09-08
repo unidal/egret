@@ -11,7 +11,7 @@
 
 <a:body>
 	<div class="row-fluid">
-		<div class="row-fluid">
+		<div class="span4">
 			<table class="table table-striped table-bordered table-condensed">
 				<caption>${payload.plan}</caption>
 
@@ -28,7 +28,9 @@
 							<td>
 								<div id="p_${plan.index}" class="progress progress-striped">
 									<c:forEach var="step" items="${plan.steps}" varStatus="it">
-										<div id="b_${plan.index}_${step.step}" class="bar bar-${plan.statuses[step.step]}" style="width: ${step.weight}%"></div>
+										<div id="b_${plan.index}_${step.step}"
+											class="bar bar-${plan.statuses[step.step]}"
+											style="width: ${step.weight}%"></div>
 									</c:forEach>
 								</div>
 							</td>
@@ -36,16 +38,19 @@
 					</c:forEach>
 				</tbody>
 			</table>
-		</div>
-
-		<div class="row-fluid">
 			<div id="result" style="display: none"></div>
-
-			<div id="status" data-spy="scroll" data-offset="0"
-				class="scrollspy-example"
-				style="height: 300px; line-height: 20px; overflow: auto; background-color: #000;">
-				<span id="offset--1" class="terminal-like">
-					${model.quotedLog} </span>
+		</div>
+		<div class="span8">
+			<div class="row-fluid">
+				<div class="page-header">
+					<h4>Remote Deploy Logs</h4>
+				</div>
+				<div id="status" data-spy="scroll" data-offset="0"
+					class="terminal-like"
+					style="height: 300px; line-height: 20px; overflow: auto;">
+					<span id="offset--1" class="terminal-like">
+						${model.quotedLog} </span>
+				</div>
 			</div>
 		</div>
 	</div>
