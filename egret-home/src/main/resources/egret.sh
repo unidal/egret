@@ -28,8 +28,8 @@ function log {
 function prepare {
 	log "Start prepare..."
 	rm -rf $LIB_DIR
-	log "Fetch app update from repository..."
-	git clone $LIB_REPO_URL $LIB_DIR
+	log "Fetch app update version $1 from repository..."
+	git clone $LIB_REPO_URL $LIB_DIR -b $1
 	log "Done"
 	#check if version compatible
 	mkdir -p $WEBAPP_DIR
@@ -89,13 +89,8 @@ function commit {
 function rollback {
 	log "Start rollback..."
 	log "Rollback updated files..."
-	if [ x$2 = "x" ]
-	then
-		cd $WEBAPP_DIR
-		git reset --hard
-	else
-		git reset --heard $2
-	fi
+	cd $WEBAPP_DIR
+	git reset --hard
 	log "Done"
 	log "Clean temp directories..."
 	rm -rf $LIB_DIR/*
@@ -113,7 +108,7 @@ function rollback {
 
 if [ $1 = "prepare" ]
 then
-	prepare
+	prepare $2
 elif [ $1 = "activate" ]
 then
 	activate
