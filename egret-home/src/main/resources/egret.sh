@@ -2,6 +2,7 @@ cd `dirname $0`
 #echo "running egret with $1 $2"
 
 TOMCAT_HOME="/Users/marsqing/Projects/tmp/tomcat/"
+LIB_REPO_URL="ssh://git@192.168.8.22:58422/egretlib"
 
 if [ x$TOMCAT_HOME = "x" ]
 then
@@ -28,7 +29,7 @@ function prepare {
 	log "Start prepare..."
 	rm -rf $LIB_DIR
 	log "Fetch app update from repository..."
-	git clone ssh://git@192.168.8.22:58422/egretlib $LIB_DIR
+	git clone $LIB_REPO_URL $LIB_DIR
 	log "Done"
 	#check if version compatible
 	mkdir -p $WEBAPP_DIR
