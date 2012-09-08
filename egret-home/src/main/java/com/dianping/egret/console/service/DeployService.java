@@ -82,7 +82,7 @@ public class DeployService {
 			int len = m_messages.size();
 
 			for (int i = offset; i < len; i++) {
-				sb.append(m_messages.get(i)).append("<br>\\r\\n");
+				sb.append(m_messages.get(i)).append("<br>");
 			}
 
 			return Math.max(0, len - offset);

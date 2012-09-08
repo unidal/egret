@@ -27,9 +27,9 @@
 							<td>${plan.host}</td>
 							<td>
 								<div id="p_${plan.index}" class="progress progress-striped">
-									<c:forEach var="weight" items="${plan.stepWeights}" varStatus="it">
-										<div id="b_${plan.index}_${it.index}" class="bar"
-											style="width: ${weight}%"></div>
+									<c:forEach var="step" items="${plan.steps}" varStatus="it">
+										<div id="b_${plan.index}_${step.step}" class="bar"
+											style="width: ${step.weight}%"></div>
 									</c:forEach>
 								</div>
 							</td>
@@ -45,7 +45,7 @@
 			<div id="status" data-spy="scroll" data-offset="0"
 				class="scrollspy-example"
 				style="height: 300px; line-height: 20px; overflow: auto;">
-				<span class="label label-default"> ${model.quotedLog} </span>
+				<span id="offset--1" class="label label-inverse"> ${model.quotedLog} </span>
 			</div>
 		</div>
 	</div>

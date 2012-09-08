@@ -7,11 +7,11 @@
 "offset":${model.offset}, 
 "content": "${model.quotedLog}",
 "hosts": [ 
-<c:forEach var="plan" items="${model.plans}" varStatus="s1">
+<c:forEach var="plan" items="${model.hostPlans}" varStatus="s1">{
 "index": ${plan.index},
 "host": "${plan.host}",
 "status": [<c:forEach var="status" items="${plan.statuses}" varStatus="s2">
-"${status}"<c:if test="${not s2.first}">,</c:if>
-</c:forEach>]<c:if test="${not s1.first}">,</c:if>
+"${status}"<c:if test="${not s2.last}">,</c:if>
+</c:forEach>]}<c:if test="${not s1.last}">,</c:if>
 </c:forEach>]
 }
