@@ -46,7 +46,7 @@ function updateDeployStatus() {
 																						.addClass(
 																								"bar-"
 																										+ status);
-																				if (statusIndex == host.status.length
+																				if (statusIndex == host.status.length - 1
 																						&& (status == 'success'
 																								|| status == 'warning' || status == 'failed')) {
 																					$(
@@ -54,7 +54,7 @@ function updateDeployStatus() {
 																									+ hostIndex)
 																							.removeClass(
 																									"active");
-																					if (hostIndex == data.hosts.length) {
+																					if (hostIndex == data.hosts.length - 1) {
 																						finished = true;
 																					}
 																				}
