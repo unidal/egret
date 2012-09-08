@@ -1,3 +1,7 @@
+.progress {
+  margin-bottom: 0px;
+}
+
 .progress-danger .bar,
 .progress .bar-failed {
   background-color: #DF0101;
