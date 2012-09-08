@@ -36,7 +36,7 @@ public class Handler implements PageHandler<Context> {
 
 		switch (payload.getAction()) {
 		case LOG:
-			model.setCurrentHostPlan(m_service.getCurrentHostPlan(payload.getPlan()));
+			model.setHostPlans(m_service.getHostPlans(payload.getPlan()));
 			getMessages(model, payload);
 
 			break;

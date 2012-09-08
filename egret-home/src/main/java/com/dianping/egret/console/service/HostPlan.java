@@ -1,19 +1,26 @@
 package com.dianping.egret.console.service;
 
+import java.util.Arrays;
+
 public class HostPlan {
 	private int m_index;
 
 	private String m_host;
 
-	private int[] m_stepWeights;
+	private DeployStep[] m_steps;
 
-	private int m_step;
+	private String[] m_statuses;
 
-	private String m_status;
+	private DeployStep m_currentStep;
 
 	public HostPlan(int index, String host) {
 		m_index = index;
 		m_host = host;
+		m_steps = DeployStep.values();
+		m_statuses = new String[m_steps.length];
+		m_currentStep = m_steps[0];
+
+		Arrays.fill(m_statuses, "todo");
 	}
 
 	public String getHost() {
@@ -24,33 +31,19 @@ public class HostPlan {
 		return m_index;
 	}
 
-	public String getStatus() {
-		return m_status;
+	public String[] getStatuses() {
+		return m_statuses;
 	}
 
-	public int getStep() {
-		return m_step;
+	public DeployStep[] getSteps() {
+		return m_steps;
 	}
 
-	public int[] getStepWeights() {
-		return m_stepWeights;
+	public void setCurrentStep(DeployStep currentStep) {
+		m_currentStep = currentStep;
 	}
 
-	public HostPlan setStatus(String status) {
-		m_status = status;
-		return this;
-	}
-
-	public void setStep(int step) {
-		m_step = step;
-	}
-
-	public HostPlan setStepWeights(int... stepWeights) {
-		m_stepWeights = stepWeights;
-		return this;
-	}
-
-	public void nextStep() {
-		m_step++;
+	public void setStatus(String status) {
+		m_statuses[m_currentStep.ordinal()] = status;
 	}
 }

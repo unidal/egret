@@ -10,6 +10,6 @@ public class Model extends ViewModel<AgentPage, Action, Context> {
 
 	@Override
 	public Action getDefaultAction() {
-		return Action.VIEW;
+		return Action.DEFAULT;
 	}
 }

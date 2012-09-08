@@ -1,20 +1,27 @@
 package com.dianping.egret.agent.page.deploy;
 
+import com.dianping.egret.console.service.DeployStep;
+
 public enum Action implements com.site.web.mvc.Action {
-	PREPARE("prepare"),
+	PREPARE("prepare", DeployStep.PREPARE),
 
-	ACTIVATE("activate"),
+	ACTIVATE("activate", DeployStep.ACTIVATE),
 
-	COMMIT("commit"),
+	TEST("test", DeployStep.TEST),
 
-	ROLLBACK("rollback"),
+	COMMIT("commit", DeployStep.COMMIT_ROLLBACK),
 
-	VIEW("view");
+	ROLLBACK("rollback", DeployStep.COMMIT_ROLLBACK),
+
+	DEFAULT("default", null);
 
 	private String m_name;
 
-	private Action(String name) {
+	private DeployStep m_step;
+
+	private Action(String name, DeployStep step) {
 		m_name = name;
+		m_step = step;
 	}
 
 	public static Action getByName(String name, Action defaultAction) {
@@ -25,6 +32,10 @@ public enum Action implements com.site.web.mvc.Action {
 		}
 
 		return defaultAction;
+	}
+
+	public DeployStep getDeployStep() {
+		return m_step;
 	}
 
 	@Override

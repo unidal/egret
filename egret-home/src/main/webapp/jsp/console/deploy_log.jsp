@@ -5,9 +5,13 @@
 <jsp:useBean id="model" type="com.dianping.egret.console.page.deploy.Model" scope="request" />
 {
 "offset":${model.offset}, 
-"content": "${model.quotedLog}", 
-"index": ${model.currentHostPlan.index},
-"host": "${model.currentHostPlan.host}",
-"step": ${model.currentHostPlan.step},
-"status": "${model.currentHostPlan.status}"
+"content": "${model.quotedLog}",
+"hosts": [ 
+<c:forEach var="plan" items="${model.plans}" varStatus="s1">
+"index": ${plan.index},
+"host": "${plan.host}",
+"status": [<c:forEach var="status" items="${plan.statuses}" varStatus="s2">
+"${status}"<c:if test="${not s2.first}">,</c:if>
+</c:forEach>]<c:if test="${not s1.first}">,</c:if>
+</c:forEach>]
 }

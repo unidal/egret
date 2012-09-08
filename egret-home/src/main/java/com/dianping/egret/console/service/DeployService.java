@@ -31,16 +31,6 @@ public class DeployService {
 		return false;
 	}
 
-	public HostPlan getCurrentHostPlan(String id) {
-		DeployInfo info = m_infos.get(id);
-
-		if (info == null) {
-			return null;
-		} else {
-			return info.getCurrentPlan();
-		}
-	}
-
 	public List<HostPlan> getHostPlans(String id) {
 		DeployInfo info = m_infos.get(id);
 
@@ -68,30 +58,20 @@ public class DeployService {
 
 		private List<String> m_messages = new ArrayList<String>();
 
-		private HostPlan m_currentPlan;
-
 		public DeployInfo(String id, List<String> hosts) {
 			m_id = id;
 
 			int index = 0;
 
 			for (String host : hosts) {
-				HostPlan plan = new HostPlan(index++, host).setStatus("todo").setStepWeights(10, 70, 20);
+				HostPlan plan = new HostPlan(index++, host);
 
 				m_plans.add(plan);
-
-				if (m_currentPlan == null) {
-					m_currentPlan = plan;
-				}
 			}
 		}
 
 		public void addMessage(String message) {
 			m_messages.add(message);
-		}
-
-		public HostPlan getCurrentPlan() {
-			return m_currentPlan;
 		}
 
 		public String getId() {
@@ -111,10 +91,6 @@ public class DeployService {
 		public List<HostPlan> getPlans() {
 			return m_plans;
 		}
-
-		public void setCurrentPlan(HostPlan currentPlan) {
-			m_currentPlan = currentPlan;
-		}
 	}
 
 	static class DeployTask implements Task {
@@ -133,14 +109,17 @@ public class DeployService {
 		}
 
 		private boolean doAction(Action action, String id, HostPlan plan) {
+			DeployStep step = action.getDeployStep();
 			String host = plan.getHost();
 			String url = String.format("http://%s:3473/egret/agent/deploy?op=%s&version=%s", host, action.getName(), id);
 			BufferedReader reader = null;
 
+			plan.setCurrentStep(step);
+			plan.setStatus("doing");
+
 			try {
 				InputStream in = new URL(url).openStream();
 
-				plan.setStatus("doing");
 				reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
 
 				while (true) {
@@ -167,8 +146,6 @@ public class DeployService {
 						// ignore it
 					}
 				}
-
-				plan.nextStep();
 			}
 		}
 
@@ -193,10 +170,10 @@ public class DeployService {
 				HostPlan plan = m_info.getPlans().get(i);
 				String id = m_info.getId();
 
-				m_info.setCurrentPlan(plan);
-
 				if (prepare(id, plan)) {
 					if (activate(id, plan)) {
+						test(id, plan);
+
 						if (commit(id, plan)) {
 							m_info.addMessage("Commit successfully.");
 						} else {
@@ -210,8 +187,6 @@ public class DeployService {
 						}
 					}
 				} else {
-					plan.nextStep(); // skip one step
-
 					if (rollback(id, plan)) {
 						m_info.addMessage("Rollback successfully.");
 					} else {
@@ -223,6 +198,15 @@ public class DeployService {
 
 		@Override
 		public void shutdown() {
+		}
+
+		private boolean test(String id, HostPlan plan) {
+			DeployStep step = Action.TEST.getDeployStep();
+
+			plan.setCurrentStep(step);
+			plan.setStatus("success");
+
+			return true;
 		}
 	}
 }
