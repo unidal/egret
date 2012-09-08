@@ -43,8 +43,9 @@ function updateDeployStatus() {
 																								+ hostIndex
 																								+ "_"
 																								+ statusIndex)
-																						.addClass(
-																								"bar-"
+																						.attr(
+																								"class",
+																								"bar bar-"
 																										+ status);
 																				if (statusIndex == host.status.length - 1
 																						&& (status == 'success'
