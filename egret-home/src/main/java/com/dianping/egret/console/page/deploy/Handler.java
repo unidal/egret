@@ -44,15 +44,18 @@ public class Handler implements PageHandler<Context> {
 		model.setAction(payload.getAction());
 		model.setPage(ConsolePage.DEPLOY);
 
+		String plan = payload.getPlan();
+		
 		switch (payload.getAction()) {
 		case LOG:
-			model.setHostPlans(m_service.getHostPlans(payload.getPlan()));
+			model.setHostPlans(m_service.getHostPlans(plan));
+			model.setStatus(m_service.getStatus(plan));
 			getMessages(model, payload);
 
 			break;
 		case VIEW:
-			model.setHostPlans(m_service.getHostPlans(payload.getPlan()));
-			model.setStatus(m_service.getStatus(payload.getPlan()));
+			model.setHostPlans(m_service.getHostPlans(plan));
+			model.setStatus(m_service.getStatus(plan));
 			getMessages(model, payload);
 
 			break;

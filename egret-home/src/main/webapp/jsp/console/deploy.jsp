@@ -60,7 +60,7 @@
 				</div>
 				<div id="status" data-spy="scroll" data-offset="0"
 					class="terminal-like"
-					style="height: 300px; line-height: 20px; overflow: auto;">
+					style="height: 500px; line-height: 20px; overflow: auto;">
 					<span id="offset--1" class="terminal-like">
 						${model.quotedLog} </span>
 				</div>

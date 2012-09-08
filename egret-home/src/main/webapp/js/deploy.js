@@ -22,8 +22,8 @@ function updateDeployStatus() {
 										stopTimer();
 									},
 									success : function(data) {
-										console.log(data);
-										var finished;
+										console.log(data.status);
+										var finished = data.status
 										$
 												.each(
 														data.hosts,
@@ -71,18 +71,20 @@ function updateDeployStatus() {
 																									+ hostIndex)
 																							.removeClass(
 																									"active");
-																					if (hostIndex == data.hosts.length - 1) {
-																						finished = true;
-																					}
 																				}
 																			});
 														});
 
-										if (finished) {
+										if (finished=="success") {
 											showResult("success",
 													"Deploy Completed");
 											$(".progress")
 													.removeClass("active");
+											stopTimer();
+										}else if(finished=="failed"){
+											showResult("error","Deploy Failed");
+											$(".progress")
+											.removeClass("active");
 											stopTimer();
 										}
 
@@ -96,6 +98,7 @@ function updateDeployStatus() {
 																	+ " class=\"terminal-like\">"
 																	+ data.content
 																	+ "</span>");
+											$("#status").scrollTop($("#status").get(0).scrollHeight)
 										}
 									}
 								});

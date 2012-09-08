@@ -205,14 +205,14 @@ public class DeployService {
 
 				if (prepare(id, plan)) {
 					if (activate(id, plan)) {
-						test(id, plan);
+						if (test(id, plan)) {
+							if (commit(id, plan)) {
+								m_info.addMessage("Commit successfully.");
 
-						if (commit(id, plan)) {
-							m_info.addMessage("Commit successfully.");
-
-							continue;
-						} else {
-							m_info.addMessage("Commit failed.");
+								continue;
+							} else {
+								m_info.addMessage("Commit failed.");
+							}
 						}
 					} else {
 						if (rollback(id, plan)) {
