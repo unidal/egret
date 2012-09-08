@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dianping.egret.agent.page.deploy.Action;
+import com.site.helper.Files;
 import com.site.helper.Threads;
 import com.site.helper.Threads.Task;
 
@@ -108,14 +109,33 @@ public class DeployService {
 			return doAction(Action.COMMIT, id, plan);
 		}
 
-		private boolean doAction(Action action, String id, HostPlan plan) {
+		private boolean doAction(Action action, String version, HostPlan plan) {
 			DeployStep step = action.getDeployStep();
 			String host = plan.getHost();
-			String url = String.format("http://%s:3473/egret/agent/deploy?op=%s&version=%s", host, action.getName(), id);
-			BufferedReader reader = null;
+			String url = String.format("http://%s:3473/egret/agent/deploy?op=%s&version=%s", host, action.getName(),
+			      version);
 
 			plan.setCurrentStep(step);
 			plan.setStatus("doing");
+
+			if (openUrl(url)) {
+				plan.setStatus("success");
+				return true;
+			} else {
+				plan.setStatus("failed");
+				return false;
+			}
+		}
+
+		@Override
+		public String getName() {
+			return getClass().getSimpleName();
+		}
+
+		private boolean openUrl(String url) {
+			BufferedReader reader = null;
+
+			m_info.addMessage("Invoking URL: " + url);
 
 			try {
 				InputStream in = new URL(url).openStream();
@@ -132,11 +152,10 @@ public class DeployService {
 					m_info.addMessage(line);
 				}
 
-				plan.setStatus("success");
 				return true;
 			} catch (Throwable e) {
 				m_info.addMessage(e.toString());
-				plan.setStatus("failed");
+
 				return false;
 			} finally {
 				if (reader != null) {
@@ -147,11 +166,6 @@ public class DeployService {
 					}
 				}
 			}
-		}
-
-		@Override
-		public String getName() {
-			return getClass().getSimpleName();
 		}
 
 		private boolean prepare(String id, HostPlan plan) {
@@ -202,11 +216,25 @@ public class DeployService {
 
 		private boolean test(String id, HostPlan plan) {
 			DeployStep step = Action.TEST.getDeployStep();
+			String host = plan.getHost();
+			String url = String.format("http://%s:8080/demo/add.action?a=12&b=13", host);
 
 			plan.setCurrentStep(step);
-			plan.setStatus("success");
+			plan.setStatus("doing");
 
-			return true;
+			try {
+				String content = Files.forIO().readFrom(new URL(url).openStream(), "utf-8");
+
+				if ("25".equals(content.trim())) {
+					plan.setStatus("success");
+					return true;
+				}
+			} catch (Exception e) {
+				// ignore it
+			}
+
+			plan.setStatus("failed");
+			return false;
 		}
 	}
 }
