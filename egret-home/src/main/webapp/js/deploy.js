@@ -14,30 +14,58 @@ function updateDeployStatus() {
 									error : function(xhRequest, ErrorText,
 											thrownError) {
 										console.log(xhRequest);
-										
 										console.log(ErrorText);
 										console.log(thrownError);
+
 										showResult("error", ErrorText);
+										$(".progress").removeClass("active");
 										stopTimer();
 									},
 									success : function(data) {
-										// $("#progressbar").css("width",
-										// data.progress + "%");
 										console.log(data);
-										$("#p_" + data.index)
-												.addClass("active");
-										if (data.index > 0) {
-											$("#p_" + (data.index - 1))
-													.removeClass("active");
-										}
-										$("#b_" + data.index + "_" + data.step)
-												.addClass("bar-" + data.status);
-										
-										if (data.progress >= 100) {
+										var finished;
+										$
+												.each(
+														data.hosts,
+														function(hostIndex,
+																host) {
+															$("#p_" + hostIndex)
+																	.addClass(
+																			"active");
+															$
+																	.each(
+																			host.status,
+																			function(
+																					statusIndex,
+																					status) {
+																				$(
+																						"#b_"
+																								+ hostIndex
+																								+ "_"
+																								+ statusIndex)
+																						.addClass(
+																								"bar-"
+																										+ status);
+																				if (statusIndex == host.status.length - 1
+																						&& (status == 'success'
+																								|| status == 'warning' || status == 'failed')) {
+																					$(
+																							"#p_"
+																									+ hostIndex)
+																							.removeClass(
+																									"active");
+																					if (hostIndex == data.hosts.length - 1) {
+																						finished = true;
+																					}
+																				}
+																			});
+														});
+
+										if (finished) {
 											showResult("success",
 													"Deploy Completed");
-											$("#b_" + data.index).removeClass(
-													"active");
+											$(".progress")
+													.removeClass("active");
 											stopTimer();
 										}
 
@@ -46,23 +74,21 @@ function updateDeployStatus() {
 										if (data.content) {
 											$("#status")
 													.prepend(
-															"<p id="
+															"<span id=offset-"
 																	+ data.offset
-																	+ "><span class=\"label label-inverse\">"
+																	+ " class=\"label label-inverse\">"
 																	+ data.content
-																	+ "</span></p>");
-//											new TypingText(
-//													document
-//															.getElementById(data.offset));
+																	+ "</span>");
 										}
 									}
 								});
 					});
 }
+
 var interval = setInterval('updateDeployStatus()', 1000);
 function stopTimer() {
 	clearInterval(interval);
-} 
+}
 
 function showResult(type, content) {
 	$("#result").html(

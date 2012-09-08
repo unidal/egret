@@ -5460,9 +5460,9 @@ a.badge:hover {
 }
 
 .progress .bar + .bar {
-  -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-     -moz-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-          box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: inset 2px 0 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+     -moz-box-shadow: inset 2px 0 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+          box-shadow: inset 2px 0 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
 
 .progress-striped .bar {
