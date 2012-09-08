@@ -15,7 +15,7 @@ import com.site.web.mvc.annotation.PayloadMeta;
 public class Handler implements PageHandler<Context> {
 	@Inject
 	private Shell m_shell;
-	
+
 	@Override
 	@PayloadMeta(Payload.class)
 	@InboundActionMeta(name = "deploy")
@@ -29,8 +29,11 @@ public class Handler implements PageHandler<Context> {
 		Payload payload = ctx.getPayload();
 
 		OutputStream resOut = ctx.getHttpServletResponse().getOutputStream();
+		String query = ctx.getHttpServletRequest().getQueryString();
+		System.out.println(query);
 		switch (payload.getAction()) {
 		case PREPARE:
+			System.out.println();
 			m_shell.prepare(payload.getVersion(), resOut);
 			break;
 		case ACTIVATE:
@@ -41,6 +44,8 @@ public class Handler implements PageHandler<Context> {
 			break;
 		case ROLLBACK:
 			m_shell.rollback(payload.getVersion(), resOut);
+			break;
+		default:
 			break;
 		}
 	}

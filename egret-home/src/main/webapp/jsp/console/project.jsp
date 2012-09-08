@@ -2,52 +2,48 @@
 <%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="ctx"
-	type="com.dianping.egret.console.page.home.Context" scope="request" />
-<jsp:useBean id="payload"
-	type="com.dianping.egret.console.page.home.Payload" scope="request" />
-<jsp:useBean id="model"
-	type="com.dianping.egret.console.page.home.Model" scope="request" />
+<jsp:useBean id="ctx" type="com.dianping.egret.console.page.home.Context" scope="request" />
+<jsp:useBean id="payload" type="com.dianping.egret.console.page.home.Payload" scope="request" />
+<jsp:useBean id="model" type="com.dianping.egret.console.page.home.Model" scope="request" />
 
 <a:body>
 
 	<div class="row-fluid">
-		<table class="table table-striped table-bordered">
-			<caption>${model.project.name}</caption>
+			<h2>${model.project.name}</h2>
+			<table class="table table-striped table-bordered">
 			<tbody>
 				<tr>
-					<td>Owner</td>
+					<th width="15%">Owner</th>
 					<td>${model.project.owner}</td>
 				</tr>
 				<tr>
-					<td>Dependency</td>
+					<th>Dependency</th>
 					<td>
-						<ul>
 							<c:forEach var="jar" items="${model.project.dependencyJars}">
-								<li>${jar}</li>
+								${jar}&nbsp;&nbsp;
 							</c:forEach>
-						</ul>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 
-	<form class="form-horizontal" action="?op=deploy" method="post">
-		<div class="row-fluid">
+	<form class="form-horizontal" method="get">
+		<input type="hidden" name="op" value="deploy"/>
+		<h2>Host List</h2>
+				<div class="row-fluid">
 			<table class="table table-striped table-bordered table-condensed">
-				<caption>Host List</caption>
 				<thead>
 					<tr>
-						<th></th>
-						<th>IP</th>
+						<th width="15%">IP</th>
+						<th>Operation</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="ip" items="${model.project.hosts}">
 						<tr>
-							<td><input type="checkbox" name="hosts" value="${ip}"></td>
 							<td>${ip}</td>
+							<td><input type="checkbox" name="hosts" value="${ip}"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -55,13 +51,12 @@
 		</div>
 
 		<div class="row-fluid">
-			<select name="deployPlan">
+			<select name="plan">
 				<c:forEach var="plan" items="${model.deployPlans}">
 					<option>${plan}</option>
 				</c:forEach>
 			</select>
-			<button type="submit" class="btn btn-primary">Submit Plan</button>
-			<button type="button" class="btn">Cancel</button>
+			<button type="submit" class="btn btn-primary">Deploy</button>
 		</div>
 	</form>
 </a:body>
