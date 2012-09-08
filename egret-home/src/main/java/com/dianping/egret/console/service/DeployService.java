@@ -48,12 +48,24 @@ public class DeployService {
 		return info.getMessage(offset, sb);
 	}
 
+	public String getStatus(String id) {
+		DeployInfo info = m_infos.get(id);
+
+		if (info == null) {
+			return "";
+		} else {
+			return info.getStatus();
+		}
+	}
+
 	static class DeployInfo {
 		private String m_id;
 
 		private List<HostPlan> m_plans = new ArrayList<HostPlan>();
 
 		private List<String> m_messages = new ArrayList<String>();
+
+		private String m_status;
 
 		public DeployInfo(String id, List<String> hosts) {
 			m_id = id;
@@ -87,6 +99,14 @@ public class DeployService {
 
 		public List<HostPlan> getPlans() {
 			return m_plans;
+		}
+
+		public String getStatus() {
+			return m_status;
+		}
+
+		public void setStatus(String status) {
+			m_status = status;
 		}
 	}
 
@@ -175,6 +195,9 @@ public class DeployService {
 		@Override
 		public void run() {
 			int hosts = m_info.getPlans().size();
+			boolean flag = true;
+
+			m_info.setStatus("doing");
 
 			for (int i = 0; i < hosts; i++) {
 				HostPlan plan = m_info.getPlans().get(i);
@@ -186,6 +209,8 @@ public class DeployService {
 
 						if (commit(id, plan)) {
 							m_info.addMessage("Commit successfully.");
+
+							continue;
 						} else {
 							m_info.addMessage("Commit failed.");
 						}
@@ -203,6 +228,15 @@ public class DeployService {
 						m_info.addMessage("Rollback failed.");
 					}
 				}
+
+				flag = false;
+				break;
+			}
+
+			if (flag) {
+				m_info.setStatus("success");
+			} else {
+				m_info.setStatus("failed");
 			}
 		}
 

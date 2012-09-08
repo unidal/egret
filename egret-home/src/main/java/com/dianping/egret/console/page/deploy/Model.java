@@ -20,6 +20,8 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 
 	private int m_offset;
 
+	private String m_status;
+
 	public Model(Context ctx) {
 		super(ctx);
 	}
@@ -53,6 +55,10 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 		return m_log == null ? null : m_log.replace(Pattern.quote("\""), "\\\"");
 	}
 
+	public String getStatus() {
+		return m_status;
+	}
+
 	public void setCurrentHostPlan(HostPlan currentHostPlan) {
 		m_currentHostPlan = currentHostPlan;
 	}
@@ -75,5 +81,9 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 
 	public void setPlan(String plan) {
 		m_plan = plan;
+	}
+
+	public void setStatus(String status) {
+		m_status = status;
 	}
 }

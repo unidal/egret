@@ -19,6 +19,16 @@ public class Handler implements PageHandler<Context> {
 	@Inject
 	private DeployService m_service;
 
+	private void getMessages(Model model, Payload payload) {
+		StringBuilder sb = new StringBuilder(1024);
+		String plan = payload.getPlan();
+		int offset = payload.getOffset();
+		int logs = m_service.getMessages(plan, offset, sb);
+
+		model.setLog(sb.toString());
+		model.setOffset(offset + logs);
+	}
+
 	@Override
 	@PayloadMeta(Payload.class)
 	@InboundActionMeta(name = "deploy")
@@ -42,21 +52,12 @@ public class Handler implements PageHandler<Context> {
 			break;
 		case VIEW:
 			model.setHostPlans(m_service.getHostPlans(payload.getPlan()));
+			model.setStatus(m_service.getStatus(payload.getPlan()));
 			getMessages(model, payload);
 
 			break;
 		}
 
 		m_jspViewer.view(ctx, model);
-	}
-
-	private void getMessages(Model model, Payload payload) {
-		StringBuilder sb = new StringBuilder(1024);
-		String plan = payload.getPlan();
-		int offset = payload.getOffset();
-		int logs = m_service.getMessages(plan, offset, sb);
-
-		model.setLog(sb.toString());
-		model.setOffset(offset + logs);
 	}
 }
