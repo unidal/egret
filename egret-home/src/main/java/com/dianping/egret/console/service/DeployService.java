@@ -20,16 +20,12 @@ public class DeployService {
 	private Map<String, DeployInfo> m_infos = new HashMap<String, DeployInfo>();
 
 	public synchronized boolean deploy(List<String> hosts, String id) {
-		if (!m_infos.containsKey(id)) {
-			DeployInfo info = new DeployInfo(id, hosts);
-			DeployTask task = new DeployTask(info);
+		DeployInfo info = new DeployInfo(id, hosts);
+		DeployTask task = new DeployTask(info);
 
-			m_infos.put(id, info);
-			Threads.forGroup("Egret").start(task);
-			return true;
-		}
-
-		return false;
+		m_infos.put(id, info);
+		Threads.forGroup("Egret").start(task);
+		return true;
 	}
 
 	public List<HostPlan> getHostPlans(String id) {

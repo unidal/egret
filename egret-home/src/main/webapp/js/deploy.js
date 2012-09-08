@@ -90,10 +90,10 @@ function updateDeployStatus() {
 
 										if (data.content) {
 											$("#status")
-													.prepend(
+													.append(
 															"<span id=offset-"
 																	+ data.offset
-																	+ " class=\"label label-inverse\">"
+																	+ " class=\"terminal-like\">"
 																	+ data.content
 																	+ "</span>");
 										}
