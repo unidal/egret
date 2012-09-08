@@ -41,10 +41,6 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 		return m_hosts;
 	}
 
-	public String getLog() {
-		return m_log;
-	}
-
 	public int getOffset() {
 		return m_offset;
 	}

@@ -76,7 +76,13 @@ public class DeployService {
 			int index = 0;
 
 			for (String host : hosts) {
-				m_plans.add(new HostPlan(index++, host).setStatus("todo").setStepWeights(10, 70, 20));
+				HostPlan plan = new HostPlan(index++, host).setStatus("todo").setStepWeights(10, 70, 20);
+
+				m_plans.add(plan);
+
+				if (m_currentPlan == null) {
+					m_currentPlan = plan;
+				}
 			}
 		}
 
