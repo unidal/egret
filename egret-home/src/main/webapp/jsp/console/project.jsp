@@ -9,21 +9,19 @@
 <a:body>
 
 	<div class="row-fluid">
-		<table class="table table-striped table-bordered">
-			<caption>${model.project.name}</caption>
+			<h2>${model.project.name}</h2>
+			<table class="table table-striped table-bordered">
 			<tbody>
 				<tr>
-					<td>Owner</td>
+					<th width="15%">Owner</th>
 					<td>${model.project.owner}</td>
 				</tr>
 				<tr>
-					<td>Dependency</td>
+					<th>Dependency</th>
 					<td>
-						<ul>
 							<c:forEach var="jar" items="${model.project.dependencyJars}">
-								<li>${jar}</li>
+								${jar}&nbsp;&nbsp;
 							</c:forEach>
-						</ul>
 					</td>
 				</tr>
 			</tbody>
@@ -32,20 +30,20 @@
 
 	<form class="form-horizontal" method="get">
 		<input type="hidden" name="op" value="deploy"/>
-		<div class="row-fluid">
+		<h2>Host List</h2>
+				<div class="row-fluid">
 			<table class="table table-striped table-bordered table-condensed">
-				<caption>Host List</caption>
 				<thead>
 					<tr>
-						<th></th>
-						<th>IP</th>
+						<th width="15%">IP</th>
+						<th>Operation</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="ip" items="${model.project.hosts}">
 						<tr>
-							<td><input type="checkbox" name="hosts" value="${ip}"></td>
 							<td>${ip}</td>
+							<td><input type="checkbox" name="hosts" value="${ip}"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -59,7 +57,6 @@
 				</c:forEach>
 			</select>
 			<button type="submit" class="btn btn-primary">Deploy</button>
-			<button type="reset" class="btn">Cancel</button>
 		</div>
 	</form>
 </a:body>

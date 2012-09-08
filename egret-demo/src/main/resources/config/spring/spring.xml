@@ -17,6 +17,9 @@
 		</property>
 	</bean>
 
+	<bean id="addAction" class="com.dianping.demo.AddAction">
+	</bean>
+
 	<bean id="commonAlarmSerivce" class="com.dianping.dpsf.spring.ProxyBeanFactory"
 		init-method="init">
 		<property name="serviceName"

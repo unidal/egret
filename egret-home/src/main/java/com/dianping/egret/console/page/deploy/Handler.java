@@ -23,7 +23,6 @@ public class Handler implements PageHandler<Context> {
 	@PayloadMeta(Payload.class)
 	@InboundActionMeta(name = "deploy")
 	public void handleInbound(Context ctx) throws ServletException, IOException {
-		// display only, no action here
 	}
 
 	@Override
@@ -37,19 +36,27 @@ public class Handler implements PageHandler<Context> {
 
 		switch (payload.getAction()) {
 		case LOG:
-			StringBuilder sb = new StringBuilder(1024);
-			String plan = payload.getPlan();
-			int offset = payload.getOffset();
-			int logs = m_service.getLog(plan, offset, sb);
-			int progress = m_service.getProgress(plan);
+			model.setCurrentHostPlan(m_service.getCurrentHostPlan(payload.getPlan()));
+			getMessages(model, payload);
 
-			model.setLog(sb.toString());
-			model.setProgress(progress);
-			model.setOffset(offset + logs);
-		default:
+			break;
+		case VIEW:
+			model.setHostPlans(m_service.getHostPlans(payload.getPlan()));
+			getMessages(model, payload);
+
 			break;
 		}
 
 		m_jspViewer.view(ctx, model);
+	}
+
+	private void getMessages(Model model, Payload payload) {
+		StringBuilder sb = new StringBuilder(1024);
+		String plan = payload.getPlan();
+		int offset = payload.getOffset();
+		int logs = m_service.getMessages(plan, offset, sb);
+
+		model.setLog(sb.toString());
+		model.setOffset(offset + logs);
 	}
 }

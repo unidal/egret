@@ -1,18 +1,22 @@
 package com.dianping.egret.console.page.deploy;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.dianping.egret.console.ConsolePage;
+import com.dianping.egret.console.service.HostPlan;
 import com.site.web.mvc.ViewModel;
 
 public class Model extends ViewModel<ConsolePage, Action, Context> {
 	private List<String> m_hosts;
 
+	private List<HostPlan> m_hostPlans;
+
+	private HostPlan m_currentHostPlan;
+
 	private String m_plan;
 
 	private String m_log;
-
-	private int m_progress;
 
 	private int m_offset;
 
@@ -20,17 +24,21 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 		super(ctx);
 	}
 
+	public HostPlan getCurrentHostPlan() {
+		return m_currentHostPlan;
+	}
+
 	@Override
 	public Action getDefaultAction() {
 		return Action.VIEW;
 	}
 
-	public List<String> getHosts() {
-		return m_hosts;
+	public List<HostPlan> getHostPlans() {
+		return m_hostPlans;
 	}
 
-	public String getLog() {
-		return m_log;
+	public List<String> getHosts() {
+		return m_hosts;
 	}
 
 	public int getOffset() {
@@ -41,8 +49,16 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 		return m_plan;
 	}
 
-	public int getProgress() {
-		return m_progress;
+	public String getQuotedLog() {
+		return m_log == null ? null : m_log.replace(Pattern.quote("\""), "\\\"");
+	}
+
+	public void setCurrentHostPlan(HostPlan currentHostPlan) {
+		m_currentHostPlan = currentHostPlan;
+	}
+
+	public void setHostPlans(List<HostPlan> hostPlans) {
+		m_hostPlans = hostPlans;
 	}
 
 	public void setHosts(List<String> hosts) {
@@ -59,9 +75,5 @@ public class Model extends ViewModel<ConsolePage, Action, Context> {
 
 	public void setPlan(String plan) {
 		m_plan = plan;
-	}
-
-	public void setProgress(int progress) {
-		m_progress = progress;
 	}
 }

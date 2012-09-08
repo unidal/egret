@@ -16,7 +16,6 @@
 <res:jsSlot id="head-js"/>
 <res:useCss value='${res.css.local.bootstrap_css}' target="head-css"/>
 <res:useCss value='${res.css.local.body_css}' target="head-css"/>
-<res:useCss value='${res.css.local.body_css}' target="head-css"/>
 </head>
 
 <body>
@@ -25,11 +24,11 @@
 			<div class="container-fluid">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="#">Egret</a>
+				</a> <a class="brand" href="/egret/console">Egret</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li><a href="?op=home">Home</a></li>
-						<li><a href="?op=about">About</a></li>
+						<li><a href="${model.webapp}/${page.moduleName}console">Home</a></li>
+						<li><a href="${model.webapp}/${page.moduleName}console?op=about">About</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
