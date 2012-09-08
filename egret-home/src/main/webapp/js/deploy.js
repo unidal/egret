@@ -47,6 +47,22 @@ function updateDeployStatus() {
 																								"class",
 																								"bar bar-"
 																										+ status);
+																				$(
+																						"#b_"
+																								+ hostIndex
+																								+ "_"
+																								+ statusIndex)
+																						.attr(
+																								"rel",
+																								"tooltip");
+																				$(
+																						"#b_"
+																								+ hostIndex
+																								+ "_"
+																								+ statusIndex)
+																						.attr(
+																								"title",
+																								status);
 																				if (statusIndex == host.status.length - 1
 																						&& (status == 'success'
 																								|| status == 'warning' || status == 'failed')) {

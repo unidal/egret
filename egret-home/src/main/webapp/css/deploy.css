@@ -1,3 +1,14 @@
+.label-todo {
+}
+
+.label-doing {
+  background-color: #2E64FE;
+}
+
+.label-failed {
+  background-color: #DF0101;
+}
+
 .progress {
   margin-bottom: 0px;
 }

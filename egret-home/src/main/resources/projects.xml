@@ -3,10 +3,11 @@
 		<owner>yong.you</owner>
 		<hosts>
 			<host>192.168.62.180</host>
-			<host>192.168.62.169</host>
+			<host>192.168.62.180</host>
+			<host>192.168.62.180</host>
 		</hosts>
 		<dependencyJars>
-			<dependencyJar>dpsf-net-1.8.0.jar</dependencyJar>
+			<dependencyJar>dpsf-net-1.7.0.jar</dependencyJar>
 			<dependencyJar>cat-core-0.4.1.jar</dependencyJar>
 		</dependencyJars>
 	</project>
@@ -20,7 +21,6 @@
 			<dependencyJar>cat-core-0.3.4.jar</dependencyJar>
 		</dependencyJars>
 	</project>
-	<patch>Pigeon:1.6.1</patch>
-	<patch>Pigeon:1.7.0</patch>
-	<patch>Pigeon:1.8.0</patch>
+	<patch>pigeon1.6.1</patch>
+	<patch>pigeon1.7.0</patch>
 </projects>
