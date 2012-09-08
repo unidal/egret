@@ -12,9 +12,10 @@
 <a:body>
 	<div class="row-fluid">
 		<div class="span4">
+			<div class="page-header">
+				<h4>Plan : ${payload.plan}</h4>
+			</div>
 			<table class="table table-striped table-bordered table-condensed">
-				<caption>${payload.plan}</caption>
-
 				<thead>
 					<tr>
 						<th width="20%">Remote Hosts</th>
@@ -30,7 +31,8 @@
 									<c:forEach var="step" items="${plan.steps}" varStatus="it">
 										<div id="b_${plan.index}_${step.step}"
 											class="bar bar-${plan.statuses[step.step]}"
-											style="width: ${step.weight}%"></div>
+											style="width: ${step.weight}%" rel="tooltip"
+											title="${plan.statuses[step.step]}"></div>
 									</c:forEach>
 								</div>
 							</td>
@@ -38,6 +40,17 @@
 					</c:forEach>
 				</tbody>
 			</table>
+
+			<div class="row">
+				<p class="pull-right">
+					<span class="label label-todo">todo&nbsp;&nbsp;&nbsp;</span> <span
+						class="label label-doing">doing&nbsp;&nbsp;</span> <span
+						class="label label-success">success</span> <span
+						class="label label-warning">warning</span> <span
+						class="label label-failed">failed&nbsp;</span>
+				</p>
+			</div>
+
 			<div id="result" style="display: none"></div>
 		</div>
 		<div class="span8">
